@@ -50,19 +50,19 @@ const [sortBy, setSortBy] = useState(null);
 
 
   return (
-    <div class="container mx-auto px-4 sm:px-8 mt-[4rem]">
+    <div class="container mx-auto px-4 sm:px-8 mt-[4.3rem]">
     <div class="py-4">
           
            {/*header */}
                <div>
-                  <h2 class="text-3xl font-semibold leading-tight text-left">View Examinations</h2>
+                  <h2 class="text-3xl font-semibold leading-tight text-left">View Examinations: <span className='text-green-600'>Administrator</span></h2>
                </div>
 
            {/*search bar */}
-      <div class = "p-10  min-w-full ">
+           <div class = "p-4 ml-6 min-w-full ">
       <input onChange ={(e) => setSearch(e.target.value)}
        type="search"
-        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" 
+        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none" 
         placeholder="Search"
          aria-label="Search" 
          aria-describedby="button-addon2"/>
@@ -90,7 +90,7 @@ const [sortBy, setSortBy] = useState(null);
 
                  {/*table headers*/}
                 <th onClick={() => handleSort('examId')}
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
                   Exam ID { sortBy === 'examId' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
@@ -116,13 +116,13 @@ const [sortBy, setSortBy] = useState(null);
                    {/*table headers*/}   
 
                 <th onClick={() => handleSort('age')}
-                  class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
                   Age { sortBy === 'age' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                     {/*table headers*/}
                 <th onClick={() => handleSort('sex')}
-                  class="px-2 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
                   Sex { sortBy === 'sex' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
@@ -137,7 +137,7 @@ const [sortBy, setSortBy] = useState(null);
                 <th onClick={() => handleSort('zipCode')}
                   class="px-1 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 >
-                  {/*condition for  */}
+                
                   Zip Code { sortBy === 'zipCode' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
                 </th>
 
@@ -149,20 +149,20 @@ const [sortBy, setSortBy] = useState(null);
             </thead>
             <tbody>
                 {/*mapping the api data onto the table */}
-              {exams.filter((item)=>{
+              {exams.filter((exam)=>{
           /* search function */ 
-          return search.toLowerCase() === '' ? item : item.examId.toLowerCase().includes(search.toLowerCase()) || item.patientId.toLowerCase().includes(search.toLowerCase()) || item.sex.toLowerCase().includes(search.toLowerCase()) || item.keyFindings.toLowerCase().includes(search.toLowerCase());
-        } ).map(item => (<tr key = {item.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
+          return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.keyFindings.toLowerCase().includes(search.toLowerCase()) || exam.zipCode.toLowerCase().includes(search.toLowerCase());
+        } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                   {/*table data */}
-                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${item.patientId}`}>{item.patientId}</Link> </td>       
-                        <td class=" px-7 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${item._id}`}>{item.examId}</Link></td>
-                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {item.imageURL} alt = 'x-ray photo'/></td>
-                        <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{item.keyFindings}</td> 
-                        <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{item.brixiaScores}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{item.age}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{item.sex}</td> 
-                        <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{item.bmi}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm"> {item.zipCode}</td> 
+                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
+                        <td class=" px-7 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
+                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {exam.imageURL} alt = 'x-ray photo'/></td>
+                        <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{exam.keyFindings}</td> 
+                        <td class=" px-5 py-5 border-gray-200 bg-white text-sm">{exam.brixiaScores}</td> 
+                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
+                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
+                        <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
+                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zipCode}</td> 
 
 
                         
