@@ -18,7 +18,7 @@ function App() {
       <Route path = '/' element = {<Exams/>}/>
       <Route path = '/exams' element = {<Exams/>}/> 
        <Route path = '/patient/:patientId' element  = {<Patient/>}/>
-       <Route path = '/exam/:_id' element   = {<Exam/>}/>
+       <Route path = '/exams/:_id' element   = {<Exam/>}/>
       <Route path = '/admin' element = {<Admin/>}/>
     </Routes>
     </Router>

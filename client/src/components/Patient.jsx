@@ -3,17 +3,25 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 function Patient() {
-  const [patient, setPatient] = useState([]);
+  const [exams, setExams] = useState([]);
   const { patientId } = useParams();
+
+
     //Fetching the API
-  useEffect(() => {
-    fetch(`https://czi-covid-lypkrzry4q-uc.a.run.app/api/patient/${patientId}`)
-      .then(response => response.json())
-      .then(data => setPatient(data.exams));
-      
-  }, []);
   
-  console.log(patientId);
+    useEffect(() => {
+      const fetchExams = async () => {
+        try {
+          const response = await fetch(`http://localhost:5000/api/exams/patient/${patientId}`);
+          const data = await response.json();
+          setExams(data.exams);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchExams();
+    }, []);
   
 
   const[search,setSearch] = useState("");
@@ -30,7 +38,7 @@ const [sortBy, setSortBy] = useState(null);
     setSortBy(key);
     setSortDirection(direction);
 
-    setPatient([...patient].sort((a, b) => {
+    setExams([...exams].sort((a, b) => {
       let aValue = a[key];
       let bValue = b[key];
 
@@ -94,13 +102,13 @@ const [sortBy, setSortBy] = useState(null);
                 <th onClick={() => handleSort('keyFindings')}
                   class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
-                  Key Findings { sortBy === 'keyFindings' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
+                  Mortality { sortBy === 'keyFindings' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                   {/*table headers*/}
                 <th onClick={() => handleSort('brixiaScores')}
                   class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
-                  Brixia Score { sortBy === 'brixiaScores' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
+                  Icu Admits { sortBy === 'brixiaScores' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                    {/*table headers*/}   
 
@@ -138,16 +146,16 @@ const [sortBy, setSortBy] = useState(null);
             </thead>
             <tbody>
                 {/*mapping the api data onto the table */}
-              {patient.filter((item)=>{
+              {exams.filter((item)=>{
           /* search function */ 
           return search.toLowerCase() === '' ? item : item.examId.toLowerCase().includes(search.toLowerCase()) || item.patientId.toLowerCase().includes(search.toLowerCase()) || item.sex.toLowerCase().includes(search.toLowerCase()) || item.keyFindings.toLowerCase().includes(search.toLowerCase()) || item.zipCode.toLowerCase().includes(search.toLowerCase());
         } ).map(item => (<tr key = {item.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                
                         <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm">{item.patientId} </td>       
-                        <td class=" px-7 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exam/${item._id}`}>{item.examId}</Link></td>
-                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {item.imageURL} alt = 'x-ray image'/></td>
-                        <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{item.keyFindings}</td> 
-                        <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{item.brixiaScores}</td> 
+                        <td class=" px-7 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${item._id}`}>{item.examId}</Link></td>
+                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {item.pngFileName} alt = 'x-ray image'/></td>
+                        <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{item.mortality}</td> 
+                        <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{item.numIcuAdmits}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{item.age}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{item.sex}</td> 
                         <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{item.bmi}</td> 

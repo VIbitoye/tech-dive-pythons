@@ -25,6 +25,17 @@ const getExam = async(req,res) =>{
   res.status(200).json(exam)
 }
 
+//get Exams By Patient
+const getExamsByPatient = async (req, res) => {
+  try {
+    const patientId = req.params.patientId;
+    const exam = await Exam.find({ patientId });
+    return res.status(200).json({ success: true, exams: exam });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 //create a new exam
 const createExam = async(req,res) => {
  const exam = new Exam(req.body);
@@ -71,5 +82,5 @@ const updateExam = async (req, res) => {
 }
 
 module.exports = {
-  createExam, getExams, getExam, deleteExam, updateExam
+  createExam, getExams, getExam, deleteExam, updateExam, getExamsByPatient
 };

@@ -3,33 +3,46 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 function Exam() {
-  const [exam, setExam] = useState([]);
+  const [exam, setExam] = useState({});
   const {_id} = useParams();
   console.log(_id);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/exam/${_id}`)
-      .then(response => response.json())
-      .then(data => setExam(data.exam));
-      
+    const fetchExams = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/exams/${_id}`);
+        const data = await response.json();
+        setExam(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchExams();
   }, []);
+
   return (
 
     <div class="container mx-auto px-4 sm:px-8 mt-[7rem]">
-      <div>
-                  <h2 class="text-3xl font-semibold leading-tight text-left">Exam Details</h2>
-               </div>
-               <div className='flex flex-col items-center justify-center'>
- <p>Exam ID: {exam.examId}</p>
-      <p>Patient ID: {exam.patientId}</p>
-      <p>Age: {exam.age}</p>
-      <p>Sex: {exam.sex}</p>
-      <p>Zip code: {exam.zipCode}</p>
-      <p>BMI: {exam.bmi}</p>
-      <p>Key findings: {exam.keyFindings}</p>
-      <p>Brixia scores: {exam.brixiaScores}</p>
-      <p>Image URL: <img src = {exam.imageURL} className=' max-w-[10rem]'/></p>
-  </div></div>
+    <div>
+      <h2 class="text-3xl font-semibold leading-tight text-left">Exam Details</h2>
+    </div>
+    <div className='flex flex-col items-center justify-center'>
+      {exam && (
+        <>
+          <p>Exam ID: {exam.examId}</p>
+          <p>Patient ID: {exam.patientId}</p>
+          <p>Age: {exam.age}</p>
+          <p>Sex: {exam.sex}</p>
+          <p>Zip code: {exam.zipCode}</p>
+          <p>BMI: {exam.bmi}</p>
+          <p>Mortality: {exam.mortality}</p>
+          <p>Number of ICU admits: {exam.numIcuAdmits}</p>
+          <p>Image URL: <img src={exam.pngFileName} className=' max-w-[10rem]' /></p>
+        </>
+      )}
+    </div>
+  </div>
      
   )
 }
