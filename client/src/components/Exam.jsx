@@ -34,7 +34,7 @@ function Exam() {
           <p>Patient ID: {exam.patientId}</p>
           <p>Age: {exam.age}</p>
           <p>Sex: {exam.sex}</p>
-          <p>Zip code: {exam.zipCode}</p>
+          <p>Zip code: {exam.zip}</p>
           <p>BMI: {exam.bmi}</p>
           <p>Mortality: {exam.mortality}</p>
           <p>Number of ICU admits: {exam.numIcuAdmits}</p>
