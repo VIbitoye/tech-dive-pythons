@@ -8,7 +8,7 @@ function Exam() {
   console.log(_id);
 
   useEffect(() => {
-    fetch(`https://czi-covid-lypkrzry4q-uc.a.run.app/api/exam/${_id}`)
+    fetch(`http://localhost:5000/api/exam/${_id}`)
       .then(response => response.json())
       .then(data => setExam(data.exam));
       

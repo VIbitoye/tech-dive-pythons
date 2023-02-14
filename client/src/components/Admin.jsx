@@ -5,13 +5,16 @@ function Admin() {
   const [exams, setExams] = useState([]);
 
   //Fetching the API
-  useEffect(() => {
-    fetch('https://czi-covid-lypkrzry4q-uc.a.run.app/api/exams')
-      .then(response => response.json())
-      .then(data => setExams(data.exams));
-      
-  }, []);
-
+ useEffect(() => {
+  const fetchExams = async () =>{
+  const response = await fetch('http://localhost:5000/api/exams')
+  const json = await response.json()
+  if (response.ok){
+    setExams(json)
+  }
+  }
+  fetchExams()
+ }, [])
 
 
 
@@ -55,7 +58,7 @@ const [sortBy, setSortBy] = useState(null);
           
            {/*header */}
                <div>
-                  <h2 class="text-3xl font-semibold leading-tight text-left">View Examinations: <span className='text-green-600'>Administrator</span></h2>
+                  <h2 class="text-3xl font-semibold leading-tight text-left mb-4">View Examinations: <span className='text-green-600'>Administrator</span></h2>
                </div>
 
            {/*search bar */}
@@ -105,13 +108,13 @@ const [sortBy, setSortBy] = useState(null);
                 <th onClick={() => handleSort('keyFindings')}
                   class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
-                  Key Findings { sortBy === 'keyFindings' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
+                  Mortality { sortBy === 'keyFindings' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                   {/*table headers*/}
                 <th onClick={() => handleSort('brixiaScores')}
                   class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
-                  Brixia Score { sortBy === 'brixiaScores' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
+                  ICU Admits { sortBy === 'brixiaScores' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                    {/*table headers*/}   
 
@@ -151,18 +154,18 @@ const [sortBy, setSortBy] = useState(null);
                 {/*mapping the api data onto the table */}
               {exams.filter((exam)=>{
           /* search function */ 
-          return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.keyFindings.toLowerCase().includes(search.toLowerCase()) || exam.zipCode.toLowerCase().includes(search.toLowerCase());
+          return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase());
         } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                   {/*table data */}
                         <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
                         <td class=" px-7 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exam/${exam._id}`}>{exam.examId}</Link></td>
-                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {exam.imageURL} alt = 'x-ray photo'/></td>
-                        <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{exam.keyFindings}</td> 
-                        <td class=" px-5 py-5 border-gray-200 bg-white text-sm">{exam.brixiaScores}</td> 
+                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {exam.pngFileName} alt = 'x-ray photo'/></td>
+                        <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
+                        <td class=" px-5 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
                         <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zipCode}</td> 
+                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zip}</td> 
 
 
                         

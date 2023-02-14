@@ -1,13 +1,12 @@
 var createError = require('http-errors');
+const mongoose = require('mongoose');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
+var examsRouter = require('./routes/exams')
 var app = express();
 
 app.use(logger('dev'));
@@ -17,8 +16,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+require('dotenv').config();
+
+//exams routes
+app.use('/api/exams', examsRouter);
+
+app.get('/', (req, res) =>{
+  res.json({mssg: 'Welcome to the app'})
+})
+
+
+//connect to db uisng mongoose
+mongoose.set("strictQuery", false);
+mongoose.connect(process.env.MONG_URI)
+  .then(() => {
+    //listen for requests
+  app.listen(process.env.PORT, () => {
+    console.log('connected to db & listening on port', process.env.PORT)
+  })
+  })
+  .catch((error) => {
+    console.log(error)
+  })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
