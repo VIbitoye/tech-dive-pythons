@@ -67,6 +67,14 @@ const [sortBy, setSortBy] = useState(null);
                <div>
                   <h2 class="text-3xl font-semibold leading-tight text-left">View Examinations</h2>
                </div>
+               <div class = "p-4 ml-6 min-w-full ">
+      <input onChange ={(e) => setSearch(e.target.value)}
+       type="search"
+        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none" 
+        placeholder="Search"
+         aria-label="Search" 
+         aria-describedby="button-addon2"/>
+      </div>
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div
           class="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
@@ -99,16 +107,16 @@ const [sortBy, setSortBy] = useState(null);
                  Image 
                 </th>
                   {/*table headers*/}
-                <th onClick={() => handleSort('keyFindings')}
+                <th onClick={() => handleSort('mortality')}
                   class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
-                  Mortality { sortBy === 'keyFindings' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
+                  Mortality { sortBy === 'mortality' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                   {/*table headers*/}
-                <th onClick={() => handleSort('brixiaScores')}
+                <th onClick={() => handleSort('numIcuAdmits')}
                   class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
-                  Icu Admits { sortBy === 'brixiaScores' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
+                  Icu Admits { sortBy === 'numIcuAdmits' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                    {/*table headers*/}   
 
@@ -131,11 +139,11 @@ const [sortBy, setSortBy] = useState(null);
                 </th>
                       {/*table headers*/}
 
-                <th onClick={() => handleSort('zipCode')}
+                <th onClick={() => handleSort('zip')}
                   class="px-3 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 >
                   
-                  Zip Code { sortBy === 'zipCode' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
+                  Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
                 </th>
 
                     {/*table headers*/}
@@ -148,14 +156,16 @@ const [sortBy, setSortBy] = useState(null);
                 {/*mapping the api data onto the table */}
               {exams.filter((exam)=>{
           /* search function */ 
-          return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.keyFindings.toLowerCase().includes(search.toLowerCase()) || exam.zipCode.toLowerCase().includes(search.toLowerCase());
+          return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
+          || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
+          || exam.age.toLowerCase().includes(search.toLowerCase());
         } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                
-                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm">{exam.patientId} </td>       
-                        <td class=" px-7 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
+                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
+                        <td class=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
                         <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
-                        <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
-                        <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
+                        <td class=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
+                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
                         <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
