@@ -157,9 +157,9 @@ const [sortBy, setSortBy] = useState(null);
           return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase());
         } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                   {/*table data */}
-                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
+                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white  text-sm">{exam.patientId}</td>       
                         <td class=" px-7 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
-                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {exam.pngFileName} alt = 'x-ray photo'/></td>
+                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
                         <td class=" px-7 py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td class=" px-5 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 

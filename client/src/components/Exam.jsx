@@ -38,7 +38,7 @@ function Exam() {
           <p>BMI: {exam.bmi}</p>
           <p>Mortality: {exam.mortality}</p>
           <p>Number of ICU admits: {exam.numIcuAdmits}</p>
-          <p>Image URL: <img src={exam.pngFileName} className=' max-w-[10rem]' /></p>
+          <p>Image URL:<img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></p>
         </>
       )}
     </div>
