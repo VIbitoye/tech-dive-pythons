@@ -138,11 +138,11 @@ const [sortBy, setSortBy] = useState(null);
                 </th>
                       {/*table headers*/}
 
-                <th onClick={() => handleSort('zipCode')}
+                <th onClick={() => handleSort('zip')}
                   class="px-1 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 >
                   {/*condition for  */}
-                  Zip Code { sortBy === 'zipCode' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
+                  Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
                 </th>
 
                     {/*table headers*/}
