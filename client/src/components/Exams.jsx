@@ -1,21 +1,26 @@
 import React from 'react'
+import Pagination from './Pagination';
 import { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from "react-router-dom";
 function Exams() {
   const [exams, setExams] = useState([]);
-
   //Fetching the API
   useEffect(() => {
     const fetchExams = async () =>{
     const response = await fetch('http://localhost:5000/api/exams')
-    const json = await response.json()
+    const data = await response.json()
     if (response.ok){
-      setExams(json)
+      setExams(data)
     }
     }
     fetchExams()
    }, [])
-
+ //Pagination of the records
+ const [currentPage, setCurrentPage] = useState(1)
+ const [perPage, setPerPage] = useState (10);
+ const lastRecordIndex = currentPage * perPage;
+ const firstRecordIndex = lastRecordIndex - perPage;
+ const currentRecords = exams.slice(firstRecordIndex, lastRecordIndex)
 
 
 
@@ -54,12 +59,12 @@ const [sortBy, setSortBy] = useState(null);
 
 
   return (
-    <div class="container mx-auto px-4 sm:px-8  mt-[4.3rem]">
+    <div class="container mx-auto px-4 sm:px-8  mt-[4.8rem]">
     <div class="py-4">
           
            {/*header */}
                <div>
-                  <h2 class="text-3xl font-semibold leading-tight text-left mb-4">View Examinations</h2>
+                  <h2 class="text-3xl font-semibold leading-tight text-left mb-1 sm:w-[50rem]">View Examinations</h2>
                </div>
 
            {/*search bar */}
@@ -71,7 +76,13 @@ const [sortBy, setSortBy] = useState(null);
          aria-label="Search" 
          aria-describedby="button-addon2"/>
       </div>
-
+        {/*pagination of records */}
+          <Pagination 
+          totalRecords = {exams.length} 
+          perPage = {perPage}
+          currentPage = {currentPage}
+          setCurrentPage = {setCurrentPage}
+        />
       {/*table*/}
       
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -153,7 +164,7 @@ const [sortBy, setSortBy] = useState(null);
             </thead>
             <tbody>
                 {/*mapping the api data onto the table */}
-              {exams.filter((exam)=>{
+               {currentRecords.filter((exam)=>{
           /* search function */ 
           return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
           || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
@@ -175,7 +186,7 @@ const [sortBy, setSortBy] = useState(null);
                         
                
               </tr>))}
-              
+                    
              
             </tbody>
           </table>

@@ -1,28 +1,35 @@
 import React from 'react'
+import Pagination from './Pagination';
 import { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from "react-router-dom";
 function Admin() {
   const [exams, setExams] = useState([]);
+  const[search,setSearch] = useState("");
+  console.log(search);
 
+  const [sortBy, setSortBy] = useState(null);
+  const [sortDirection, setSortDirection] = useState(null);
+
+  
   //Fetching the API
  useEffect(() => {
   const fetchExams = async () =>{
   const response = await fetch('http://localhost:5000/api/exams')
-  const json = await response.json()
+  const data = await response.json()
   if (response.ok){
-    setExams(json)
+    setExams(data)
   }
   }
   fetchExams()
  }, [])
 
+ //Pagination of the records
+  const [currentPage, setCurrentPage] = useState(1)
+  const [perPage, setPerPage] = useState (10);
+  const lastRecordIndex = currentPage * perPage;
+  const firstRecordIndex = lastRecordIndex - perPage;
+  const currentRecords = exams.slice(firstRecordIndex, lastRecordIndex)
 
-
-const[search,setSearch] = useState("");
-console.log(search);
-
-const [sortBy, setSortBy] = useState(null);
-  const [sortDirection, setSortDirection] = useState(null);
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -53,12 +60,12 @@ const [sortBy, setSortBy] = useState(null);
 
 
   return (
-    <div class="container mx-auto px-4 sm:px-8 mt-[4.3rem]">
+    <div class="container mx-auto px-4 sm:px-8 mt-[4.8rem]">
     <div class="py-4">
           
            {/*header */}
                <div>
-                  <h2 class="text-3xl font-semibold leading-tight text-left mb-4">View Examinations: <span className='text-green-600'>Administrator</span></h2>
+                  <h2 class="text-3xl font-semibold leading-tight text-left mb-1 sm:w-[50rem]">View Examinations: <span className='text-green-600'>Administrator</span></h2>
                </div>
 
            {/*search bar */}
@@ -70,14 +77,22 @@ const [sortBy, setSortBy] = useState(null);
          aria-label="Search" 
          aria-describedby="button-addon2"/>
       </div>
+       
+       {/*pagination of records */}
+      <Pagination 
+        totalRecords = {exams.length} 
+        perPage = {perPage}
+        currentPage = {currentPage}
+        setCurrentPage = {setCurrentPage}
+        />
 
       {/*table*/}
       
-      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto ">
         <div
           class="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
         >
-          <table class="min-w-full leading-normal text-left ">
+          <table class="sm:min-w-full leading-normal text-left ">
             {/*table headers
             contains an onclick function to sort them in ascending or descending order*/}
             <thead>
@@ -100,7 +115,7 @@ const [sortBy, setSortBy] = useState(null);
 
                       {/*table headers*/}
                 <th 
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700  tracking-wider"
                 >
                  Image 
                 </th>
@@ -152,14 +167,14 @@ const [sortBy, setSortBy] = useState(null);
             </thead>
             <tbody>
                 {/*mapping the api data onto the table */}
-              {exams.filter((exam)=>{
+              {currentRecords.filter((exam)=>{
           /* search function */ 
           return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
           || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
           || exam.age.toLowerCase().includes(search.toLowerCase());
         } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                   {/*table data */}
-                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
+                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td class=" px-8 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
                         
                         <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
@@ -179,6 +194,7 @@ const [sortBy, setSortBy] = useState(null);
             </tbody>
           </table>
         </div>
+    
       </div>
     </div>
   </div>

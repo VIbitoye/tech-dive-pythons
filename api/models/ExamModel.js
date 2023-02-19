@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-//creating a schema
+//creating a schemaaQWEY65 7
 const ExamSchema = new mongoose.Schema({
     patientId: {
         type: String,

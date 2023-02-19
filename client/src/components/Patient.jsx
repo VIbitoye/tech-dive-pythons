@@ -2,8 +2,13 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Pagination from './Pagination';
 function Patient() {
   const [exams, setExams] = useState([]);
+  const[search,setSearch] = useState("");
+  console.log(search);
+  const [sortBy, setSortBy] = useState(null);
+  const [sortDirection, setSortDirection] = useState(null);
   const { patientId } = useParams();
 
 
@@ -23,12 +28,13 @@ function Patient() {
       fetchExams();
     }, []);
   
-
-  const[search,setSearch] = useState("");
-console.log(search);
-
-const [sortBy, setSortBy] = useState(null);
-  const [sortDirection, setSortDirection] = useState(null);
+ //Pagination of the records
+ const [currentPage, setCurrentPage] = useState(1)
+ const [perPage, setPerPage] = useState (10);
+ const lastRecordIndex = currentPage * perPage;
+ const firstRecordIndex = lastRecordIndex - perPage;
+ const currentRecords = exams.slice(firstRecordIndex, lastRecordIndex)
+  
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -60,12 +66,12 @@ const [sortBy, setSortBy] = useState(null);
 
   return (
     
-    <div class="container mx-auto px-4 sm:px-8 mt-[4.3rem]">
+    <div class="container mx-auto px-4 sm:px-8 mt-[4.8rem]">
     <div class="py-4">
           
            {/*header */}
                <div>
-                  <h2 class="text-3xl font-semibold leading-tight text-left">View Examinations</h2>
+                  <h2 class="text-3xl font-semibold leading-tight text-left sm:w-[50rem] mb-1">View Examinations:  <span className='text-green-500'>Patient {patientId}</span></h2>
                </div>
                <div class = "p-4 ml-6 min-w-full ">
       <input onChange ={(e) => setSearch(e.target.value)}
@@ -75,6 +81,12 @@ const [sortBy, setSortBy] = useState(null);
          aria-label="Search" 
          aria-describedby="button-addon2"/>
       </div>
+       {/*pagination of records */}
+       <Pagination 
+        totalRecords = {exams.length} 
+        perPage = {perPage}
+        setCurrentPage = {setCurrentPage}
+        />
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div
           class="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
