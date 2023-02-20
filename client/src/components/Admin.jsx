@@ -60,7 +60,7 @@ function Admin() {
 
 
   return (
-    <div class="container mx-auto px-4 sm:px-8 mt-[4.8rem]">
+    <div class="container mx-auto px-4 sm:px-8  mt-[4rem]">
     <div class="py-4">
           
            {/*header */}

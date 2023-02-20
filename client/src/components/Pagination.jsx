@@ -7,14 +7,21 @@ function Pagination({totalRecords, perPage, currentPage, setCurrentPage}) {
     }
   return (
     <div className='flex items-center justify-center'>
-    <div className=' flex items-center border w-fit  rounded-md'>
+    <div className=' flex items-center border border-gray-400  w-fit  rounded-md'>
         {
         pages.map((page, index) =>{
-        return <button  
-        className={`flex items-center text-gray-700 font-semibold border-r-2 border-gray-200 justify-center px-4 ${currentPage === page ? 'bg-green-200' : ''} ${index === pages.length - 1 ? 'border-r-0' : ''}`}  
-        key = {index} onClick ={()=> setCurrentPage(page)}>
-          {page}
-        </button> })}
+        return  <button
+        className=
+        {`flex items-center focus:bg-green-400 active:bg-green-400 hover:bg-green-200 text-gray-600 font-semibold border-r border-gray-400 justify-center px-4 
+        ${
+          currentPage === page ? 'bg-green-400' : ''
+        } `}
+        key={index}
+        onClick={() => setCurrentPage(page)}
+        style={index === pages.length - 1 ? { borderRight: 'none' } : {}}
+      >
+        {page}
+      </button> })}
     </div>
     </div>
   )

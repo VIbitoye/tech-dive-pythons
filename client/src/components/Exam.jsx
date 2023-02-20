@@ -23,7 +23,7 @@ function Exam() {
 
   return (
 
-    <div class="container mx-auto px-4 sm:px-8 mt-[7rem]">
+    <div class="container mx-auto px-4 sm:px-8 mt-[5rem]">
     <div>
       <h2 class="text-3xl font-semibold leading-tight text-left">Exam Details</h2>
     </div>

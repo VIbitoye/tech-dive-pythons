@@ -20,7 +20,7 @@ function Exams() {
  const [perPage, setPerPage] = useState (10);
  const lastRecordIndex = currentPage * perPage;
  const firstRecordIndex = lastRecordIndex - perPage;
- const currentRecords = exams.slice(firstRecordIndex, lastRecordIndex)
+
 
 
 
@@ -29,6 +29,11 @@ console.log(search);
 
 const [sortBy, setSortBy] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
+
+  const searchHandler = (event) => {
+    setSearch(event.target.value);
+    setCurrentPage(1); // Reset current page to 1 when searching
+  };
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -56,10 +61,15 @@ const [sortBy, setSortBy] = useState(null);
       }
     }));
   };
-
+  const filteredItems = exams.filter((exam) =>
+  exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
+  || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
+  || exam.age.toLowerCase().includes(search.toLowerCase())
+);
+ const currentRecords = filteredItems.slice(firstRecordIndex, lastRecordIndex)
 
   return (
-    <div class="container mx-auto px-4 sm:px-8  mt-[4.8rem]">
+    <div class="container mx-auto px-4 sm:px-8  mt-[4rem]">
     <div class="py-4">
           
            {/*header */}
@@ -69,7 +79,8 @@ const [sortBy, setSortBy] = useState(null);
 
            {/*search bar */}
       <div class = "p-4 ml-6 min-w-full ">
-      <input onChange ={(e) => setSearch(e.target.value)}
+      <input onChange ={searchHandler}
+      value={search}
        type="search"
         class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none" 
         placeholder="Search"
@@ -164,12 +175,7 @@ const [sortBy, setSortBy] = useState(null);
             </thead>
             <tbody>
                 {/*mapping the api data onto the table */}
-               {currentRecords.filter((exam)=>{
-          /* search function */ 
-          return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
-          || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
-          || exam.age.toLowerCase().includes(search.toLowerCase());
-        } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
+               {currentRecords.map((exam) => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                   {/*table data */}
                         <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
                         <td class=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>

@@ -33,7 +33,6 @@ function Patient() {
  const [perPage, setPerPage] = useState (10);
  const lastRecordIndex = currentPage * perPage;
  const firstRecordIndex = lastRecordIndex - perPage;
- const currentRecords = exams.slice(firstRecordIndex, lastRecordIndex)
   
 
   const handleSort = (key) => {
@@ -62,11 +61,17 @@ function Patient() {
       }
     }));
   };
+  const filteredItems = exams.filter((exam) =>
+  exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
+  || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
+  || exam.age.toLowerCase().includes(search.toLowerCase())
+);
+ const currentRecords = filteredItems.slice(firstRecordIndex, lastRecordIndex)
 
 
   return (
     
-    <div class="container mx-auto px-4 sm:px-8 mt-[4.8rem]">
+    <div class="container mx-auto px-4 sm:px-8  mt-[4rem]">
     <div class="py-4">
           
            {/*header */}
@@ -166,12 +171,7 @@ function Patient() {
             </thead>
             <tbody>
                 {/*mapping the api data onto the table */}
-              {exams.filter((exam)=>{
-          /* search function */ 
-          return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
-          || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
-          || exam.age.toLowerCase().includes(search.toLowerCase());
-        } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
+              {currentRecords.map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem]'>
                
                         <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td class=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
