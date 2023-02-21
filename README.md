@@ -23,7 +23,7 @@ In order to run the server, you'll run the following commands:
 ```bash
 cd api/
 npm i
-npm start
+npm run dev
 ```
 
 You should then be able to visit `localhost:9000` in your browser and see the server running.
