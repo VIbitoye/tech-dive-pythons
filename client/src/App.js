@@ -4,11 +4,12 @@ import Navbar from './components/Navbar';
 import Exams from './components/Exams';
 import Exam from './components/Exam';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useApi } from './hooks/use-api';
 import Patient from './components/Patient';
+import Update from './components/Update';
+import NewExamForm from './components/NewExamForm';
 
 function App() {
- const response = useApi();
+
   return (
     <div className="App">   
 
@@ -18,6 +19,8 @@ function App() {
       <Route path = '/' element = {<Exams/>}/>
       <Route path = '/exams' element = {<Exams/>}/> 
        <Route path = '/patient/:patientId' element  = {<Patient/>}/>
+       <Route path = '/exams/:examId/update' element = {<Update/>}/>
+       <Route path = '/exams/new' element = {<NewExamForm/>}/>
        <Route path = '/exams/:_id' element   = {<Exam/>}/>
       <Route path = '/admin' element = {<Admin/>}/>
     </Routes>

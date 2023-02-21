@@ -82,7 +82,7 @@ const [sortBy, setSortBy] = useState(null);
       <input onChange ={searchHandler}
       value={search}
        type="search"
-        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none" 
+        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
         placeholder="Search"
          aria-label="Search" 
          aria-describedby="button-addon2"/>
@@ -155,16 +155,16 @@ const [sortBy, setSortBy] = useState(null);
                       {/*table headers*/}
                 <th onClick={() => handleSort('bmi')}
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
-                >
-                  BMI { sortBy === 'bmi' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
+                ><button>
+                  BMI { sortBy === 'bmi' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
 
                 <th onClick={() => handleSort('zip')}
                   class="px-1 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
-                >
+                ><button>
                   {/*condition for  */}
-                  Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
+                  Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
 
                     {/*table headers*/}

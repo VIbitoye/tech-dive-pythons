@@ -72,12 +72,14 @@ function Admin() {
            <div class = "p-4 ml-6 min-w-full ">
       <input onChange ={(e) => setSearch(e.target.value)}
        type="search"
-        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none" 
+        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
         placeholder="Search"
          aria-label="Search" 
          aria-describedby="button-addon2"/>
       </div>
-       
+      <div className='flex flex-row gap-[21.5rem]'>
+       <Link to ='/exams/new' className='ml-3 w-[9rem]  bg-[#53a169] drop-shadow-md text-white rounded-md text text-lg font-semibold'>Create Exam</Link>
+       <div>
        {/*pagination of records */}
       <Pagination 
         totalRecords = {exams.length} 
@@ -85,7 +87,7 @@ function Admin() {
         currentPage = {currentPage}
         setCurrentPage = {setCurrentPage}
         />
-
+  </div></div>
       {/*table*/}
       
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto ">
@@ -147,16 +149,16 @@ function Admin() {
                       {/*table headers*/}
                 <th onClick={() => handleSort('bmi')}
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                >
-                  BMI { sortBy === 'bmi' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
+                ><button>
+                  BMI { sortBy === 'bmi' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
 
                 <th onClick={() => handleSort('zip')}
                   class="px-1 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
-                >
+                ><button>
                 
-                  Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}
+                  Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
 
                     {/*table headers*/}
@@ -172,7 +174,7 @@ function Admin() {
           return search.toLowerCase() === '' ? exam : exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
           || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
           || exam.age.toLowerCase().includes(search.toLowerCase());
-        } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
+        } ).map(exam => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem'>
                   {/*table data */}
                         <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td class=" px-8 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
@@ -184,7 +186,9 @@ function Admin() {
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
                         <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zip}</td> 
-
+                        <td class=" px-5 py-5 border-gray-200"><Link className = " text-blue-500 text-md rounded"
+                         to = {`/exams/${exam._id}/update`}>
+                          Edit</Link></td>
 
                         
                
