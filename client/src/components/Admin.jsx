@@ -256,6 +256,12 @@ function Admin({exam}) {
         </div>
     
       </div>
+      <Pagination 
+        totalRecords = {exams.length} 
+        perPage = {perPage}
+        currentPage = {currentPage}
+        setCurrentPage = {setCurrentPage}
+        />
     </div>
   </div>
   )

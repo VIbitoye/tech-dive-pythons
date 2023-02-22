@@ -17,7 +17,12 @@ function Pagination({totalRecords, perPage, currentPage, setCurrentPage}) {
           currentPage === page ? 'bg-green-400' : ''
         } `}
         key={index}
-        onClick={() => setCurrentPage(page)}
+        onClick={() => {
+          setCurrentPage(page);
+          //Will allow the page to go back to the top
+          window.scrollTo(0, 50);
+        }}
+        //to fix the thickness of the right-border of the last page number
         style={index === pages.length - 1 ? { borderRight: 'none' } : {}}
       >
         {page}
