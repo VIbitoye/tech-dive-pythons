@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react'
 import {createContext} from 'react'
-
+import { useExamsContext } from '../hooks/useExamsContext'
 export const ExamsContext = createContext()
 export const examsReducer = (state, action) => {
     switch (action.type) {
@@ -9,6 +9,13 @@ export const examsReducer = (state, action) => {
             ...state,
             exams: action.payload
           }
+
+          case 'GET_EXAM':
+            return {
+              ...state,
+              exam: action.payload
+            };
+
     case 'CREATE_EXAM':
         return {
         exams: [action.payload, ...state.exams]
@@ -29,7 +36,8 @@ export const examsReducer = (state, action) => {
 }
 export const ExamsContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(examsReducer,{ 
-        exams:[]
+        exams:[],
+        exam: {}
     });
 
     return (

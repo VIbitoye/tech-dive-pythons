@@ -112,7 +112,7 @@ const [sortBy, setSortBy] = useState(null);
       
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div
-          class="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
+          class="inline-block min-w-[80rem] shadow-md rounded-lg overflow-hidden"
         >
           <table class="min-w-full leading-normal text-left ">
             {/*table headers

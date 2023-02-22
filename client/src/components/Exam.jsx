@@ -1,25 +1,29 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-
+import { useExamsContext } from '../hooks/useExamsContext';
 function Exam() {
-  const [exam, setExam] = useState({});
-  const {_id} = useParams();
-  console.log(_id);
+  const { exam, dispatch, loading } = useExamsContext();
+  const { _id } = useParams();
 
   useEffect(() => {
     const fetchExams = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/exams/${_id}`);
-        const data = await response.json();
-        setExam(data);
-      } catch (error) {
-        console.error(error);
+      const response = await fetch(`http://localhost:5000/api/exams/${_id}`);
+      const data = await response.json();
+      if (response.ok) {
+        dispatch({ type: 'GET_EXAM', payload: data });
       }
     };
-
     fetchExams();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
 

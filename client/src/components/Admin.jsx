@@ -116,8 +116,8 @@ function Admin({exam}) {
          aria-label="Search" 
          aria-describedby="button-addon2"/>
       </div>
-      <div className='flex flex-row  md:gap-[4rem] lg:gap-[13.7rem]'>
-       <Link to ='/exams/new' className='flex items-center justify-center ml-[10rem] w-[9rem] bg-[#50936d] drop-shadow-md text-white rounded-md text text-lg font-semibold'>Create Exam</Link>
+      <div className='flex flex-row gap-[1rem] md:gap-[4rem] lg:gap-[13.7rem]'>
+       <Link to ='/exams/new' className='flex items-center justify-center md:ml-[10rem] w-[9rem] bg-[#50936d] drop-shadow-md text-white rounded-md text text-lg font-semibold'>Create Exam</Link>
        <div>
        {/*pagination of records */}
       <Pagination 
