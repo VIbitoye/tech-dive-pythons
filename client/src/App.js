@@ -19,7 +19,7 @@ function App() {
       <Route path = '/' element = {<Exams/>}/>
       <Route path = '/exams' element = {<Exams/>}/> 
        <Route path = '/patient/:patientId' element  = {<Patient/>}/>
-       <Route path = '/update' element = {<Update/>}/>
+       <Route path = '/exams/:_id/update' element = {<Update/>}/>
        <Route path = '/exams/new' element = {<NewExamForm/>}/>
        <Route path = '/exams/:_id' element   = {<Exam/>}/>
       <Route path = '/admin' element = {<Admin/>}/>
