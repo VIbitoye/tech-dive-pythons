@@ -57,9 +57,9 @@ const deleteExam = async (req,res) => {
   }
   
 
-  const exam = await Exam.findOneAndDelete(_id)
+  const exam = await Exam.findByIdAndDelete(_id)
   if(!exam) {
-    return res.status(404).json({eror: 'No exams found'})
+    return res.status(404).json({error: 'No exams found'})
   }
 
   res.status(200).json(exam)

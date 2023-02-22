@@ -6,7 +6,7 @@ function Pagination({totalRecords, perPage, currentPage, setCurrentPage}) {
         pages.push(i)
     }
   return (
-    <div className='flex items-center justify-center mt-2'>
+    <div className='flex items-center justify-center mt-2 mb-2 '>
     <div className=' flex items-center border border-gray-400 drop-shadow-lg  w-fit  rounded-md'>
         {
         pages.map((page, index) =>{

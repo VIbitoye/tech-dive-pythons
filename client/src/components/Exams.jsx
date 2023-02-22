@@ -2,19 +2,31 @@ import React from 'react'
 import Pagination from './Pagination';
 import { useState, useEffect } from 'react';
 import { Link, useRouteMatch } from "react-router-dom";
+import { useExamsContext } from '../hooks/useExamsContext';
 function Exams() {
-  const [exams, setExams] = useState([]);
+  const {exams, dispatch} = useExamsContext()
   //Fetching the API
   useEffect(() => {
     const fetchExams = async () =>{
+      if (exams === null) {
+        return <div>Loading...</div>
+      }
+      
     const response = await fetch('http://localhost:5000/api/exams')
     const data = await response.json()
     if (response.ok){
-      setExams(data)
+    
+  dispatch({type: 'GET_EXAMS', payload: data})
+  
     }
     }
     fetchExams()
+    console.log('Data from state:', exams)
    }, [])
+
+   useEffect(() => {
+    console.log('Data from state:', exams)
+  }, [exams])
  //Pagination of the records
  const [currentPage, setCurrentPage] = useState(1)
  const [perPage, setPerPage] = useState (10);
@@ -42,31 +54,33 @@ const [sortBy, setSortBy] = useState(null);
     }
     setSortBy(key);
     setSortDirection(direction);
-
-    setExams([...exams].sort((a, b) => {
+  
+    const sortedExams = [...exams].sort((a, b) => {
       let aValue = a[key];
       let bValue = b[key];
-
+  
       //for converting only the strings that are numbers into number types
       if (!isNaN(aValue) && !isNaN(bValue)) {
         aValue = parseInt(aValue, 10);
         bValue = parseInt(bValue, 10);
       }
   
-
       if (direction === 'asc') {
         return aValue > bValue ? 1 : -1;
       } else {
         return aValue < bValue ? 1 : -1;
       }
-    }));
+    });
+  
+    dispatch({ type: 'SORT_EXAMS', payload: sortedExams });
   };
-  const filteredItems = exams.filter((exam) =>
+
+  const filteredItems = exams && exams.filter((exam) =>
   exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
   || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
   || exam.age.toLowerCase().includes(search.toLowerCase())
 );
- const currentRecords = filteredItems.slice(firstRecordIndex, lastRecordIndex)
+ const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
 
   return (
     <div class="container mx-auto px-4 sm:px-8  mt-[4rem]">
@@ -82,7 +96,7 @@ const [sortBy, setSortBy] = useState(null);
       <input onChange ={searchHandler}
       value={search}
        type="search"
-        class="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
+        class="form-control relative flex-auto ml-[-2rem]  block min-w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
         placeholder="Search"
          aria-label="Search" 
          aria-describedby="button-addon2"/>
@@ -142,26 +156,26 @@ const [sortBy, setSortBy] = useState(null);
                    {/*table headers*/}   
 
                 <th onClick={() => handleSort('age')}
-                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   Age { sortBy === 'age' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                     {/*table headers*/}
                 <th onClick={() => handleSort('sex')}
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   Sex { sortBy === 'sex' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
                 <th onClick={() => handleSort('bmi')}
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   BMI { sortBy === 'bmi' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
 
                 <th onClick={() => handleSort('zip')}
-                  class="px-1 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  class="px-4 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   {/*condition for  */}
                   Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
@@ -180,7 +194,7 @@ const [sortBy, setSortBy] = useState(null);
                         <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
                         <td class=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
                         
-                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
+                        <td class=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
                         <td class=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 

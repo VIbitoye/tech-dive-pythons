@@ -1,8 +1,9 @@
-
+import { useNavigate } from 'react-router-dom';
 import React from 'react'
 import { useState } from 'react';
-  
+import { useExamsContext } from '../hooks/useExamsContext';
 function NewExamForm () {
+  const {dispatch} = useExamsContext()
   const [patientId, setPatientId] = useState('');
   const [age, setAge] = useState('');
   const [sex, setSex] = useState('');
@@ -14,10 +15,12 @@ function NewExamForm () {
   const [icu, setIcu] = useState('');
   const [numIcuAdmits, setNumIcuAdmits] = useState('');
   const [mortality, setMortality] = useState('');
+  const [error,setError] = useState(null)
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const newExam = {
       patientId,
       age,
@@ -31,34 +34,42 @@ function NewExamForm () {
       numIcuAdmits,
       mortality,
     };
-
-    const response = await fetch('/api/exams', {
+  
+    const response = await fetch('http://localhost:5000/api/exams', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify(newExam),
+      headers: {
+        'Content-Type': 'application/json'
+      },
     });
-
+    const json = await response.json();
+    console.log('New exam created', json);
     if (!response.ok) {
-      const error = await response.json();
-      console.error(error);
-      return;
+      setError(json.error);
     }
+    if (response.ok) {
+      setPatientId('');
+      setAge('');
+      setSex('');
+      setZip('');
+      setBmi('');
+      setWeight('');
+      setPngFileName('');
+      setExamId('');
+      setIcu('');
+      setNumIcuAdmits('');
+      setMortality('');
 
-    setPatientId('');
-    setAge('');
-    setSex('');
-    setZip('');
-    setBmi('');
-    setWeight('');
-    setPngFileName('');
-    setExamId('');
-    setIcu('');
-    setNumIcuAdmits('');
-    setMortality('');
 
-    console.log('New exam created');
+      console.log('New exam created', json);
+      dispatch({type: 'CREATE_EXAM', payload:json});
+
+      navigate('/admin');
+      
+      // navigate to the exam page
+    }
+  
+    
   };
 
   return (

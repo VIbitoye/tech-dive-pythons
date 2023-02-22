@@ -6,10 +6,10 @@ function Navbar() {
 
     //container for navbar
     <div id = 'navbar-container' className='container bg-[#50936d] top-0 z-10 sm:min-w-full text-white h-[4rem] drop-shadow-md fixed flex items-center justify-center text-lg'>
-        <div className= 'container flex font-semibold gap-[25rem] md:gap-[30rem] lg:gap-[45rem]'>
+        <div className= 'container flex font-semibold gap-[7rem] sm:gap-[25rem] md:gap-[30rem] lg:gap-[46rem]'>
 
               {/*Nav Links */}
-              <Link to ='/exams' className='lg:mr-[27rem] md:mr-[5rem] mr-[10rem] items-center flex '>
+              <Link to ='/exams' className='lg:ml-[13rem] md:mr-[5rem] items-center flex '>
                   <img src=''/> LOGO
                </Link>
 

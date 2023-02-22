@@ -1,28 +1,47 @@
 import React from 'react'
 import Pagination from './Pagination';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from "react-router-dom";
-function Admin() {
-  const [exams, setExams] = useState([]);
+import { Link} from "react-router-dom";
+import { useExamsContext } from '../hooks/useExamsContext';
+function Admin({exam}) {
+  
+  const navigate = useNavigate();
   const[search,setSearch] = useState("");
   console.log(search);
 
   const [sortBy, setSortBy] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
-
+  
+  //modal for confirming deletion of record
+  const [showModal, setShowModal] = useState(false);
   
   //Fetching the API
- useEffect(() => {
-  const fetchExams = async () =>{
-  const response = await fetch('http://localhost:5000/api/exams')
-  const data = await response.json()
-  if (response.ok){
-    setExams(data)
-  }
-  }
-  fetchExams()
- }, [])
+  const {exams, dispatch} = useExamsContext()
+  //Fetching the API
+  useEffect(() => {
+    const fetchExams = async () =>{
+      if (exams === null) {
+        return <div>Loading...</div>
+      }
+      
+    const response = await fetch('http://localhost:5000/api/exams')
+    const data = await response.json()
+    if (response.ok){
+    
+  dispatch({type: 'GET_EXAMS', payload: data})
+  
+    }
+    }
+    fetchExams()
+    console.log('Data from state:', exams)
+   }, [])
 
+   useEffect(() => {
+    console.log('Data from state:', exams)
+  }, [exams])
+
+ 
  //Pagination of the records
   const [currentPage, setCurrentPage] = useState(1)
   const [perPage, setPerPage] = useState (10);
@@ -30,34 +49,54 @@ function Admin() {
   const firstRecordIndex = lastRecordIndex - perPage;
   const currentRecords = exams.slice(firstRecordIndex, lastRecordIndex)
 
+  function handleCloseModal() {
+    setShowModal(false);
+  }
 
-  const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortBy === key && sortDirection === 'asc') {
-      direction = 'desc';
-    }
-    setSortBy(key);
-    setSortDirection(direction);
-
-    setExams([...exams].sort((a, b) => {
-      let aValue = a[key];
-      let bValue = b[key];
-
-      //for converting only the strings that are numbers into number types
-      if (!isNaN(aValue) && !isNaN(bValue)) {
-        aValue = parseInt(aValue, 10);
-        bValue = parseInt(bValue, 10);
-      }
   
 
-      if (direction === 'asc') {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
+    const handleDeleteExam = async()=>{
+      const response = await fetch('http://localhost:5000/api/exams/' + exam._id, {
+        method: 'DELETE'
+      })
+      const json = await response.json();
+      if (!response.ok) {
+        const error = await response.json();
+        console.error(error);
+        return;
       }
-    }));
-  };
+      else if (response.ok){
+        dispatch({type: 'DELETE_EXAM', payload: json})
+      }
+    }
 
+    const handleSort = (key) => {
+      let direction = 'asc';
+      if (sortBy === key && sortDirection === 'asc') {
+        direction = 'desc';
+      }
+      setSortBy(key);
+      setSortDirection(direction);
+    
+      const sortedExams = [...exams].sort((a, b) => {
+        let aValue = a[key];
+        let bValue = b[key];
+    
+        //for converting only the strings that are numbers into number types
+        if (!isNaN(aValue) && !isNaN(bValue)) {
+          aValue = parseInt(aValue, 10);
+          bValue = parseInt(bValue, 10);
+        }
+    
+        if (direction === 'asc') {
+          return aValue > bValue ? 1 : -1;
+        } else {
+          return aValue < bValue ? 1 : -1;
+        }
+      });
+    
+      dispatch({ type: 'SORT_EXAMS', payload: sortedExams });
+    };
 
   return (
     <div class="container mx-auto px-4 sm:px-8  mt-[4rem]">
@@ -77,8 +116,8 @@ function Admin() {
          aria-label="Search" 
          aria-describedby="button-addon2"/>
       </div>
-      <div className='flex flex-row gap-[21.5rem]'>
-       <Link to ='/exams/new' className='ml-3 w-[9rem]  bg-[#53a169] drop-shadow-md text-white rounded-md text text-lg font-semibold'>Create Exam</Link>
+      <div className='flex flex-row  md:gap-[4rem] lg:gap-[13.7rem]'>
+       <Link to ='/exams/new' className='flex items-center justify-center ml-[10rem] w-[9rem] bg-[#50936d] drop-shadow-md text-white rounded-md text text-lg font-semibold'>Create Exam</Link>
        <div>
        {/*pagination of records */}
       <Pagination 
@@ -90,9 +129,9 @@ function Admin() {
   </div></div>
       {/*table*/}
       
-      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto ">
+      <div class="-mx-4 sm:-mx-[8rem] px-5 sm:px-8 py-4 overflow-x-auto ">
         <div
-          class="inline-block min-w-full shadow-md rounded-lg overflow-hidden"
+          class="inline-block min-w-[80rem] shadow-md rounded-lg overflow-hidden"
         >
           <table class="sm:min-w-full leading-normal text-left ">
             {/*table headers
@@ -142,20 +181,20 @@ function Admin() {
                 </th>
                     {/*table headers*/}
                 <th onClick={() => handleSort('sex')}
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
                   Sex { sortBy === 'sex' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
                 <th onClick={() => handleSort('bmi')}
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
                   BMI { sortBy === 'bmi' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
 
                 <th onClick={() => handleSort('zip')}
-                  class="px-1 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  class="px-4 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                 
                   Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
@@ -165,6 +204,10 @@ function Admin() {
                 <th 
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"
                 ></th>
+                  <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"
+                ></th>
+                
               </tr>
             </thead>
             <tbody>
@@ -179,18 +222,31 @@ function Admin() {
                         <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td class=" px-8 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
                         
-                        <td class=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
+                        <td class=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
                         <td class=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
                         <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
                         <td class=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zip}</td> 
-                        <td class=" px-5 py-5 border-gray-200"><Link className = " text-blue-500 text-md rounded"
+                        <td class=" px-6 py-5 border-gray-200"><Link className = " text-blue-500 text-sm rounded font-semibold"
                          to = {`/exams/${exam._id}/update`}>
                           Edit</Link></td>
-
-                        
+                          <td class=" px-5 py-5 border-gray-200 text-sm font-semibold text-red-400"><button onClick={() => setShowModal(true)}> Delete</button></td>
+                         {showModal &&  (<div class = "fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex justify-center items-center  ">
+                         <div class = "p-2 rounded w-[50rem] h-[20rem] bg-white border-2">
+                          <div class = 'flex flex-col items-center justify-center'>
+                        <div class = " text-4xl mt-10">Delete Exam</div>
+                        <p class = 'text-2xl mt-7'>Are you sure you want to permanently delete this exam?</p>
+                        <div className='flex flex-row gap-10 mt-10 text-sm font-semibold text-white'>
+                        <button onClick={handleDeleteExam} class = " flex  items-center justify-center rounded bg-red-800 w-[6rem] h-[3rem] drop-shadow-md " >Delete</button>
+                        <button onClick={handleCloseModal} class = "  flex items-center justify-center rounded bg-[#50936d] w-[6rem] h-[3rem] drop-shadow-md " >Cancel</button>
+                       </div>
+                       
+                       </div>
+                        <div class = "flex mt-[20rem] justify-center"></div>
+                                    </div> 
+                                        </div>)}
                
               </tr>))}
               
