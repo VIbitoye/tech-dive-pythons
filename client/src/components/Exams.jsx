@@ -83,20 +83,20 @@ const [sortBy, setSortBy] = useState(null);
  const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
 
   return (
-    <div class="container mx-auto px-4 sm:px-8  mt-[4rem]">
-    <div class="py-4">
+    <div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
+    <div className="py-4">
           
            {/*header */}
                <div>
-                  <h2 class="text-3xl font-semibold leading-tight text-left mb-1 sm:w-[50rem]">View Examinations</h2>
+                  <h2 className="text-3xl font-semibold leading-tight text-left ml-[10rem] mb-1 sm:w-[50rem]">View Examinations</h2>
                </div>
 
            {/*search bar */}
-      <div class = "p-4 ml-6 min-w-full ">
+      <div className = "p-4   ">
       <input onChange ={searchHandler}
       value={search}
        type="search"
-        class="form-control relative flex-auto ml-[-2rem]  block min-w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
+        className="form-control relative flex-auto ml-[0rem] lg:ml-[12rem] flex items-center justify-center min-w-[65rem] mb-5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
         placeholder="Search"
          aria-label="Search" 
          aria-describedby="button-addon2"/>
@@ -110,11 +110,11 @@ const [sortBy, setSortBy] = useState(null);
         />
       {/*table*/}
       
-      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+      <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div
-          class="inline-block min-w-[80rem] shadow-md rounded-lg overflow-hidden"
+          className="inline-block min-w-[70rem] shadow-md rounded-lg overflow-hidden"
         >
-          <table class="min-w-full leading-normal text-left ">
+          <table className="min-w-full leading-normal text-left">
             {/*table headers
             contains an onclick function to sort them in ascending or descending order*/}
             <thead>
@@ -122,7 +122,7 @@ const [sortBy, setSortBy] = useState(null);
                 {/*table headers*/}
                 <th onClick={() => handleSort('patientId')}
                 
-                  class="px-5 py-3  border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700  tracking-wider"
+                  className="px-5 py-3  border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   
                   Patient ID { sortBy === 'patientId' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
@@ -130,52 +130,52 @@ const [sortBy, setSortBy] = useState(null);
 
                  {/*table headers*/}
                 <th onClick={() => handleSort('examId')}
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   Exam ID { sortBy === 'examId' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
 
                       {/*table headers*/}
                 <th 
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700  tracking-wider"
+                  className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700  tracking-wider"
                 >
                  Image
                 </th>
                   {/*table headers*/}
                 <th onClick={() => handleSort('mortality')}
-                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
                   Mortality { sortBy === 'mortality' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                   {/*table headers*/}
                 <th onClick={() => handleSort('numIcuAdmits')}
-                  class="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  className="px-1 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 ><button>
                  ICU Admits { sortBy === 'numIcuAdmits' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                    {/*table headers*/}   
 
                 <th onClick={() => handleSort('age')}
-                  class="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  className="px-7 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   Age { sortBy === 'age' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                     {/*table headers*/}
                 <th onClick={() => handleSort('sex')}
-                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   Sex { sortBy === 'sex' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
                 <th onClick={() => handleSort('bmi')}
-                  class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   BMI { sortBy === 'bmi' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
                 </th>
                       {/*table headers*/}
 
                 <th onClick={() => handleSort('zip')}
-                  class="px-4 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
+                  className="px-4 py-5 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700  tracking-wider"
                 ><button>
                   {/*condition for  */}
                   Zip Code { sortBy === 'zip' ? (sortDirection === 'asc' ? '⬆️' : '⬇️') : ''}</button>
@@ -183,24 +183,24 @@ const [sortBy, setSortBy] = useState(null);
 
                     {/*table headers*/}
                 <th 
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"
+                  className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"
                 ></th>
               </tr>
             </thead>
             <tbody>
                 {/*mapping the api data onto the table */}
-               {currentRecords.map((exam) => (<tr key = {exam.id} class= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
+               {currentRecords.map((exam) => (<tr key = {exam.id} className= ' border-b border-gray-200 h-[10rem] hover:bg-blue-500'>
                   {/*table data */}
-                        <td class=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
-                        <td class=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
+                        <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
+                        <td className=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
                         
-                        <td class=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
-                        <td class=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
-                        <td class=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
-                        <td class=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zip}</td> 
+                        <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
+                        <td className=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
+                        <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
+                        <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
+                        <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
+                        <td className=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
+                        <td className=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zip}</td> 
 
 
                         

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-//creating a schemaaQWEY65 7
+//creating a schema
 const ExamSchema = new mongoose.Schema({
     patientId: {
         type: String,
@@ -38,6 +38,7 @@ const ExamSchema = new mongoose.Schema({
         type: String,
         required: true
       },
+
       numIcuAdmits: {
         type: String,
         required: true

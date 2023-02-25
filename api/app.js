@@ -7,6 +7,7 @@ var logger = require('morgan');
 var cors = require('cors');
 
 var examsRouter = require('./routes/exams')
+var usersRouter = require('./routes/users')
 var app = express();
 
 app.use(logger('dev'));
@@ -18,8 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 require('dotenv').config();
 
-//exams routes
+//exams route
 app.use('/api/exams', examsRouter);
+
+//users route
+app.use('/api/users', usersRouter)
 
 app.get('/', (req, res) =>{
   res.json({mssg: 'Welcome to the app'})

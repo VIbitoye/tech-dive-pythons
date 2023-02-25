@@ -73,61 +73,169 @@ function NewExamForm () {
   };
 
   return (
-    <div className='flex items-center justify-center h-screen'>
-      <div className='flex flex-row '>
-    <form className = 'flex flex-col' onSubmit={handleSubmit}>
-      <label>
-        Patient ID:
-        <input type="text" value={patientId} onChange={(event) => setPatientId(event.target.value)} required />
-      </label>
-      <label>
-        Age:
-        <input type="text" value={age} onChange={(event) => setAge(event.target.value)} required />
-      </label>
-      <label>
-        Sex:
-        <input type="text" value={sex} onChange={(event) => setSex(event.target.value)} required />
-      </label>
-      <label>
-        Zip:
-        <input type="text" value={zip} onChange={(event) => setZip(event.target.value)} required />
-      </label>
-      <label>
-        BMI:
-        <input type="text" value={bmi} onChange={(event) => setBmi(event.target.value)} required />
-      </label>
-      <label>
-        Weight:
-        <input type="text" value={weight} onChange={(event) => setWeight(event.target.value)} required />
-      </label>
-      <label>
-        PNG File Name:
-        <input type="text" value={pngFileName} onChange={(event) => setPngFileName(event.target.value)} required />
-      </label>
-      <label>
-        Exam ID:
-        <input type="text" value={examId} onChange={(event) => setExamId(event.target.value)} required />
-      </label>
-      <label>
-        ICU:
-        <input type="text" value={icu} onChange={(event) => setIcu(event.target.value)} required />
-      </label>
-      <label>
-        Number of ICU Admissions:
-      <input type="text" value={numIcuAdmits} onChange={(event) => setNumIcuAdmits(event.target.value)} required />
-      </label>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className='flex items'><h2 className='text-3xl mb-10'>Create an exam</h2></div>
+      <div className="border-2 px-6 py-8 w-5/6 max-w-5xl flex flex-row justify-center">
+        <form className="grid grid-cols-2 gap-6 items-center justify-center w-4/5" onSubmit={handleSubmit}>
+          <div className="flex flex-col">
+            <label htmlFor="patientId" className="font-medium text-gray-700">
+              Patient ID:
+            </label>
+            <input
+              type="text"
+              id="patientId"
+              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              value={patientId}
+              onChange={(event) => setPatientId(event.target.value)}
+              required
+            />
+          </div>
+  
+          <div className="flex flex-col">
+            <label htmlFor="examId" className="font-medium text-gray-700">
+              Exam ID:
+            </label>
+            <input
+              type="text"
+              id="examId"
+              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              value={examId}
+              onChange={(event) => setExamId(event.target.value)}
+              required
+            />
+          </div>
+  
+          <div className="flex flex-col">
+            <label htmlFor="age" className="font-medium text-gray-700">
+              Age:
+            </label>
+            <input
+              type="text"
+              id="age"
+              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              value={age}
+              onChange={(event) => setAge(event.target.value)}
+              required
+            />
+          </div>
+  
+          <div className="flex flex-col">
+            <label htmlFor="sex" className="font-medium text-gray-700">
+              Sex:
+            </label>
+            <input
+              type="text"
+              id="sex"
+              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              value={sex}
+              onChange={(event) => setSex(event.target.value)}
+              required
+            />
+          </div>
+  
+          <div className="flex flex-col">
+            <label htmlFor="zip" className="font-medium text-gray-700">
+              Zip:
+            </label>
+            <input
+              type="text"
+              id="zip"
+              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              value={zip}
+              onChange={(event) => setZip(event.target.value)}
+              required
+            />
+          </div>
+  
+          <div className="flex flex-col">
+            <label htmlFor="bmi" className="font-medium text-gray-700">
+              BMI:
+            </label>
+            <input
+              type="text"
+              id="bmi"
+              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              value={bmi}
+              onChange={(event) => setBmi(event.target.value)}
+              required
+            />
+          </div>
+            <div className="flex flex-col">
+              <label htmlFor="weight" className="font-medium text-gray-700">
+                Weight:
+              </label>
+              <input
+                type="text"
+                id="weight"
+                className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                value={weight}
+                onChange={(event) => setWeight(event.target.value)}
+                required
+              />
+            </div>
 
-      <label>
-        Mortality:
-        <input type="text" value={mortality} onChange={(event) => setMortality(event.target.value)} required />
-      </label>
-
-      <button type="submit">Submit</button>
-      
-      </form>
-      </div>
-      </div>
-  )
-}
+            <div className="flex flex-col">
+              <label htmlFor="pngFileName" className="font-medium text-gray-700">
+                Image:
+              </label>
+              <input
+                type="text"
+                id="weight"
+                className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                value={pngFileName}
+                onChange={(event) => setPngFileName(event.target.value)}
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="numIcuAdmits" className="font-medium text-gray-700">
+                Number of ICU Admits:
+              </label>
+              <input
+                type="number"
+                id="numIcuAdmits"
+                className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                value={numIcuAdmits}
+                onChange={(event) => setNumIcuAdmits(event.target.value)}
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="icu" className="font-medium text-gray-700">
+                ICU:
+              </label>
+              <input
+                type="text"
+                id="ICU"
+                className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                value={icu}
+                onChange={(event) => setIcu(event.target.value)}
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="mortality" className="font-medium text-gray-700">
+                Morality:
+              </label>
+              <input
+                type="text"
+                id="mortality"
+                className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+                value={mortality}
+                onChange={(event) => setMortality(event.target.value)}
+                required
+              />
+            </div>
+<button
+        type="submit"
+        className="py-2 px-4 text-lg bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+)
+  }
 
 export default NewExamForm
