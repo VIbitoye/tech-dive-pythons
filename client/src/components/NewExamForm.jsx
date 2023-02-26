@@ -110,7 +110,7 @@ function NewExamForm () {
               Age:
             </label>
             <input
-              type="text"
+              type="number"
               id="age"
               className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               value={age}
