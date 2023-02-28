@@ -73,9 +73,10 @@ function NewExamForm () {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen ">
-      <div className='flex items'><h2 className='text-4xl font-semibold mb-10'>Create Exam</h2></div>
-      <div className="border-2 px-6 py-8 w-5/6 max-w-5xl flex flex-row justify-center">
+    <div className="flex flex-col items-center mt-20 h-screen ">
+      {window.scrollTo(0, 0)}
+      <div className='flex items'><h2 className='text-4xl font-semibold mt-10 mb-10'>Create Exam</h2></div>
+      <div className="bg-white drop-shadow-lg rounded-lg border-2 px-6 py-8 w-5/6 max-w-5xl flex flex-row justify-center">
         <form className="grid grid-cols-2 gap-6 items-center justify-center w-4/5" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <label htmlFor="patientId" className="font-medium text-gray-700">
@@ -84,7 +85,7 @@ function NewExamForm () {
             <input
               type="text"
               id="patientId"
-              className="text-center rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+              className="text-center rounded-md ring-gray-800 border-gray-400 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               value={patientId}
               onChange={(event) => setPatientId(event.target.value)}
               required
@@ -114,12 +115,13 @@ function NewExamForm () {
               id="age"
               className="text-center rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
               value={age}
+              min={1}
               onChange={(event) => setAge(event.target.value)}
               required
             />
           </div>
   
-          <div className="flex flex-col tex">
+          <div className="flex flex-col">
             <label htmlFor="sex" className="font-medium text-gray-700">
               Sex:
             </label>
@@ -199,14 +201,14 @@ function NewExamForm () {
                 type="number"
                 id="numIcuAdmits"
                 className="text-center rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                value={numIcuAdmits}
+                value={icu === 'Y' ? Math.max(numIcuAdmits || 1, 1) : 0 || 0}
                 onChange={(event) => setNumIcuAdmits(event.target.value)}
                 required
               />
             </div>
             <div className="flex flex-col">
               <label htmlFor="icu" className="font-medium text-gray-700">
-                ICU:
+                Admitted to ICU:
               </label>
               <select
               id="icu"

@@ -8,6 +8,7 @@ function Admin() {
   const [selectedExam, setSelectedExam] = useState();
   const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
   const navigate = useNavigate();
+  const [notification, setNotification] = useState()
   const[search,setSearch] = useState("");
   console.log(search);
 
@@ -71,6 +72,10 @@ function Admin() {
       dispatch({ type: 'DELETE_EXAM', payload: selectedExam._id })
       setSelectedExam(null)
       setShowModal(false)
+      setNotification(true);
+      setTimeout(() => {
+        setNotification(false);
+      }, 3000);
     }
   }
 
@@ -120,7 +125,7 @@ function Admin() {
 
   return (
 <div className="container mx-auto px-4 sm:px-8 mt-[4rem]">
-      
+{window.scrollTo(0, 0)}
     <div className="py-4">
           
            {/*header */}
@@ -142,6 +147,12 @@ function Admin() {
             </div>
       {/*create exam button */}
       <div className='flex flex-col items-center'>
+         
+      {notification && (
+          <div className="mt-4 bg-red-200 px-4 py-2 mb-7 rounded-md text-red-700">
+            Exam has been deleted!
+          </div>
+        )}
           <Link
             to='/exams/new'
             className='flex items-center justify-center w-[9rem] px-4 py-2 bg-[#50936d] drop-shadow-md text-white rounded-md text text-lg font-semibold'
@@ -159,7 +170,7 @@ function Admin() {
         </div>
       {/*table*/}
       
-      <div className="px-5 sm:px-8 py-4 overflow-x-auto">
+      <div className="px-5 py-4 overflow-x-auto">
           <div className="shadow-md rounded-lg overflow-hidden">
 
           <table className=" table-auto w-full leading-normal text-left">
@@ -252,7 +263,7 @@ function Admin() {
                         <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td className=" px-8 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}/edit`}>{exam.examId}</Link></td>
                         <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm "><img className='rounded' src = {exam.pngFileName} alt = 'x-ray photo'/></td>
-                        <td className=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
+                        <td className=" px-12 py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
@@ -265,14 +276,14 @@ function Admin() {
                          <div className = "p-2 rounded w-[50rem] h-[20rem] bg-white border-2">
                           <div className = 'flex flex-col items-center justify-center'>
                         <div className = " text-4xl mt-10">Delete Exam</div>
-                        <p className = 'text-2xl mt-7'>Are you sure you want to permanently delete this exam?</p>
-                        <div className='flex flex-row gap-10 mt-10  font-semibold text-white'>
+                        <p className = 'md:text-2xl mt-7 sm:text-lg'>Are you sure you want to permanently delete this exam?</p>
+                        <div className='flex flex-row gap-10 mt-10  font-semibold text-white text-xl'>
                         <button onClick={() => handleDeleteExam(selectedExam)} className = " flex  items-center justify-center rounded bg-red-800 w-[6rem] h-[3rem] drop-shadow-md " >Delete</button>
-                        <button onClick={handleCloseModal} className = "  flex items-center justify-center rounded bg-[#49a83f] w-[6rem] h-[3rem] drop-shadow-md " >Cancel</button>
+                        <button onClick={handleCloseModal} className = "  flex items-center justify-center rounded bg-[#399d4d] w-[6rem] h-[3rem] drop-shadow-md " >Cancel</button>
                        </div>
                        
                        </div>
-                        <div className = "flex mt-[20rem] justify-center"></div>
+                     
                                     </div> 
                                         </div>)}
                

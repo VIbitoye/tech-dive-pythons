@@ -78,7 +78,7 @@ const [sortBy, setSortBy] = useState(null);
 );
 
  const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
-
+ const totalRecords = filteredItems?.length;
   return (
     <div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
     <div className="py-4">
@@ -103,7 +103,7 @@ const [sortBy, setSortBy] = useState(null);
 
         {/*pagination of records */}
           <Pagination 
-          totalRecords = {exams.length} 
+          totalRecords={totalRecords} 
           perPage = {perPage}
           currentPage = {currentPage}
           setCurrentPage = {setCurrentPage}
@@ -211,7 +211,7 @@ const [sortBy, setSortBy] = useState(null);
         </div>
       </div>
       <Pagination 
-        totalRecords = {exams.length} 
+        totalRecords = {totalRecords} 
         perPage = {perPage}
         currentPage = {currentPage}
         setCurrentPage = {setCurrentPage}
