@@ -6,6 +6,7 @@ import { Link} from "react-router-dom";
 import { useExamsContext } from '../hooks/useExamsContext';
 function Admin() {
   const [selectedExam, setSelectedExam] = useState();
+  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
   const navigate = useNavigate();
   const[search,setSearch] = useState("");
   console.log(search);
@@ -44,7 +45,6 @@ function Admin() {
   const [perPage, setPerPage] = useState (10);
   const lastRecordIndex = currentPage * perPage;
   const firstRecordIndex = lastRecordIndex - perPage;
-  const currentRecords = exams.slice(firstRecordIndex, lastRecordIndex)
 
   //closes modal
   function handleCloseModal() {
@@ -72,6 +72,11 @@ function Admin() {
       setSelectedExam(null)
       setShowModal(false)
     }
+  }
+
+  const searchHandler = (event) => {
+    setSearch(event.target.value);
+    setCurrentPage(1); // Reset current page to 1 when searching
   }
 
   //Sorts the fields
@@ -103,49 +108,58 @@ function Admin() {
       dispatch({ type: 'SORT_EXAMS', payload: sortedExams });
     };
 
+    const filteredItems = exams && exams.filter((exam) =>
+    searchProperties.some((prop) => exam[prop].toLowerCase().includes(search.toLowerCase()))
+  );
+  
+   const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
+   const totalRecords = filteredItems?.length;
+
   return (
-    <div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
+<div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
       
     <div className="py-4">
           
            {/*header */}
-               <div>
-                  <h2 className="text-3xl ml-[10rem] font-semibold leading-tight text-left mb-1 sm:w-[50rem]">View Examinations: <span className='text-green-600'>Administrator</span></h2>
-               </div>
+           <div>
+            <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:text-left sm:ml-10 lg:w-1/2 xl:w-5/12">View Examinations: <span className='text-green-600'>Administrator</span></h2>
+            </div>
 
            {/*search bar */}
-           <div className = "p-4">
-      <input onChange ={(e) => setSearch(e.target.value)}
-       type="search"
-       className="form-control relative flex-auto ml-[0rem] lg:ml-[12rem] flex items-center justify-center min-w-[65rem] mb-5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none"
-        placeholder="Search"
-         aria-label="Search" 
-         aria-describedby="button-addon2"/>
-      </div>
+           <div className="p-4">
+              <input
+                onChange={searchHandler}
+                value={search}
+                type="search"
+                className="form-control relative flex-auto w-full md:w-3/4 lg:w-1/2 xl:w-2/3 mx-auto mb-5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="button-addon2"
+              />
+            </div>
       {/*create exam button */}
       <div className='flex flex-col items-center'>
-  <Link
-    to='/exams/new'
-    className='flex items-center justify-center w-[9rem] px-4 py-2 bg-[#50936d] drop-shadow-md text-white rounded-md text text-lg font-semibold'
-  >
-    Create Exam
-  </Link>
-  <div className='flex gap-4 mt-4'>
-    <Pagination
-      totalRecords={exams.length}
-      perPage={perPage}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-    />
-  </div>
-</div>
+          <Link
+            to='/exams/new'
+            className='flex items-center justify-center w-[9rem] px-4 py-2 bg-[#50936d] drop-shadow-md text-white rounded-md text text-lg font-semibold'
+          >
+            Create Exam
+          </Link>
+          <div className='flex gap-4 mt-4'>
+            <Pagination
+            totalRecords={totalRecords} 
+              perPage={perPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </div>
       {/*table*/}
       
-      <div className="-mx-4 sm:-mx-[2rem] px-5 sm:px-8 py-4 overflow-x-auto ">
-        <div
-          className="inline-block min-w-[80rem] shadow-md rounded-lg overflow-hidden"
-        >
-          <table className="min-w-full leading-normal text-left ">
+      <div className="px-5 sm:px-8 py-4 overflow-x-auto">
+          <div className="shadow-md rounded-lg overflow-hidden">
+
+          <table className=" table-auto w-full leading-normal text-left">
             {/*table headers
             contains an onclick function to sort them in ascending or descending order*/}
             <thead>
@@ -230,11 +244,15 @@ function Admin() {
           || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
           || exam.age.toLowerCase().includes(search.toLowerCase());
         } ).map(exam => (<tr key = {exam.id} className= ' border-b border-gray-200 h-[10rem'>
+                  
                   {/*table data */}
                         <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td className=" px-8 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}/edit`}>{exam.examId}</Link></td>
-                        
-                        <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
+                        <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"> {exam.pngFileName ? (
+                   <img src={exam.pngFileName} alt='x-ray photo' />
+                    ) : (
+                   <img src={exam.pngFileName} alt='custom' />
+                             )}</td>
                         <td className=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
@@ -251,7 +269,7 @@ function Admin() {
                         <p className = 'text-2xl mt-7'>Are you sure you want to permanently delete this exam?</p>
                         <div className='flex flex-row gap-10 mt-10  font-semibold text-white'>
                         <button onClick={() => handleDeleteExam(selectedExam)} className = " flex  items-center justify-center rounded bg-red-800 w-[6rem] h-[3rem] drop-shadow-md " >Delete</button>
-                        <button onClick={handleCloseModal} className = "  flex items-center justify-center rounded bg-[#50936d] w-[6rem] h-[3rem] drop-shadow-md " >Cancel</button>
+                        <button onClick={handleCloseModal} className = "  flex items-center justify-center rounded bg-[#49a83f] w-[6rem] h-[3rem] drop-shadow-md " >Cancel</button>
                        </div>
                        
                        </div>
@@ -268,7 +286,7 @@ function Admin() {
     
       </div>
       <Pagination 
-        totalRecords = {exams.length} 
+         totalRecords={totalRecords} 
         perPage = {perPage}
         currentPage = {currentPage}
         setCurrentPage = {setCurrentPage}

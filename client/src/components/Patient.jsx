@@ -71,12 +71,12 @@ function Patient() {
 
   return (
     
-    <div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
+    <div className="container mx-auto px-4 sm:px-8 mt-[4rem]">
     <div className="py-4">
           
            {/*header */}
                <div>
-                  <h2 className="text-3xl font-semibold leading-tight text-left sm:w-[50rem] mb-1">View Examinations:  <span classNameName='text-green-500'>Patient {patientId}</span></h2>
+                  <h2 className="text-3xl font-semibold leading-tight text-left sm:w-[50rem] mb-1">View Examinations:  <span className='text-green-500'>Patient {patientId}</span></h2>
                </div>
                <div className = "p-4 ml-6 min-w-full ">
       <input onChange ={(e) => setSearch(e.target.value)}

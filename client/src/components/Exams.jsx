@@ -5,6 +5,7 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { useExamsContext } from '../hooks/useExamsContext';
 function Exams() {
   const {exams, dispatch} = useExamsContext()
+  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
   //Fetching the API
   useEffect(() => {
     const fetchExams = async () =>{
@@ -24,9 +25,6 @@ function Exams() {
     console.log('Data from state:', exams)
    }, [])
 
-   useEffect(() => {
-    console.log('Data from state:', exams)
-  }, [exams])
  //Pagination of the records
  const [currentPage, setCurrentPage] = useState(1)
  const [perPage, setPerPage] = useState (10);
@@ -76,10 +74,9 @@ const [sortBy, setSortBy] = useState(null);
   };
 
   const filteredItems = exams && exams.filter((exam) =>
-  exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
-  || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
-  || exam.age.toLowerCase().includes(search.toLowerCase())
+  searchProperties.some((prop) => exam[prop].toLowerCase().includes(search.toLowerCase()))
 );
+
  const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
 
   return (
@@ -87,20 +84,23 @@ const [sortBy, setSortBy] = useState(null);
     <div className="py-4">
           
            {/*header */}
-               <div>
-                  <h2 className="text-3xl font-semibold leading-tight text-left ml-[10rem] mb-1 sm:w-[50rem]">View Examinations</h2>
-               </div>
+           <div>
+            <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:text-left sm:ml-10 lg:w-1/2 xl:w-5/12">View Examinations</h2>
+            </div>
 
            {/*search bar */}
-      <div className = "p-4   ">
-      <input onChange ={searchHandler}
-      value={search}
-       type="search"
-        className="form-control relative flex-auto ml-[0rem] lg:ml-[12rem] flex items-center justify-center min-w-[65rem] mb-5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
-        placeholder="Search"
-         aria-label="Search" 
-         aria-describedby="button-addon2"/>
-      </div>
+           <div className="p-4">
+              <input
+                onChange={searchHandler}
+                value={search}
+                type="search"
+                className="form-control relative flex-auto w-full md:w-3/4 lg:w-1/2 xl:w-2/3 mx-auto mb-5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="button-addon2"
+              />
+            </div>
+
         {/*pagination of records */}
           <Pagination 
           totalRecords = {exams.length} 
@@ -110,11 +110,10 @@ const [sortBy, setSortBy] = useState(null);
         />
       {/*table*/}
       
-      <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-        <div
-          className="inline-block min-w-[70rem] shadow-md rounded-lg overflow-hidden"
-        >
-          <table className="min-w-full leading-normal text-left">
+      <div className="px-5 sm:px-8 py-4 overflow-x-auto">
+          <div className="shadow-md rounded-lg overflow-hidden">
+
+          <table className=" table-auto w-full leading-normal text-left">
             {/*table headers
             contains an onclick function to sort them in ascending or descending order*/}
             <thead>
@@ -194,7 +193,7 @@ const [sortBy, setSortBy] = useState(null);
                         <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white font-semibold text-sm"><Link to ={`/patient/${exam.patientId}`}>{exam.patientId}</Link> </td>       
                         <td className=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
                         
-                        <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
+                        <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"><img src = {exam.pngFileName} alt = 'x-ray photo'/></td>
                         <td className=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
