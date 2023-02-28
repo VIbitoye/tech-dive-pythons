@@ -108,15 +108,18 @@ function Admin() {
       dispatch({ type: 'SORT_EXAMS', payload: sortedExams });
     };
 
+    //filtering for search
     const filteredItems = exams && exams.filter((exam) =>
     searchProperties.some((prop) => exam[prop].toLowerCase().includes(search.toLowerCase()))
   );
   
+  
    const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
+   //for reducing the number of pages based on search results
    const totalRecords = filteredItems?.length;
 
   return (
-<div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
+<div className="container mx-auto px-4 sm:px-8 mt-[4rem]">
       
     <div className="py-4">
           
@@ -248,11 +251,7 @@ function Admin() {
                   {/*table data */}
                         <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td className=" px-8 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}/edit`}>{exam.examId}</Link></td>
-                        <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm"> {exam.pngFileName ? (
-                   <img src={exam.pngFileName} alt='x-ray photo' />
-                    ) : (
-                   <img src={exam.pngFileName} alt='custom' />
-                             )}</td>
+                        <td className=" px-7 py-5  border-gray-200 w-[10rem] bg-white text-sm "><img className='rounded' src = {exam.pngFileName} alt = 'x-ray photo'/></td>
                         <td className=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 

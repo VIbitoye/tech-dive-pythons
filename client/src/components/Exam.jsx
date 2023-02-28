@@ -29,26 +29,46 @@ function Exam() {
       <div className='mt-10'>
        <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">Exam Details</h2>
        </div>
-      <div className="flex flex-col items-center justify-center">
-    
-<div className="flex flex-col items-center justify-center">
-  <div className="flex flex-col md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-xl rounded-md border-t md:px-10 md:py-10 mt-10">
-    <img className="w-full md:w-1/2 rounded-lg" src={exam.pngFileName} alt="x-ray photo" />
+       <div className="flex flex-col items-center justify-center">
+                  <div className="flex flex-col md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-xl rounded-md border-t md:px-10 md:py-10 mt-10">
+            <img className="w-full md:w-1/2 rounded-lg" src={exam.pngFileName} alt="x-ray photo" />
 
-    <div className="flex flex-col text-lg md:text-xl bg-white rounded-lg drop-shadow-lg items-start justify-center md:w-1/2 md:px-10 md:py-5 gap-y-2">
-      <p className="font-medium">Patient ID: {exam.patientId}</p>
-      <p className="font-medium">Exam ID: {exam.examId}</p>
-      <p className="font-medium">Age: {exam.age}</p>
-      <p className="font-medium">Sex: {exam.sex}</p>
-      <p className="font-medium">Zip code: {exam.zip}</p>
-      <p className="font-medium">BMI: {exam.bmi}</p>
-      <p className="font-medium">Mortality: {exam.mortality}</p>
-      <p className="font-medium">Number of ICU admits: {exam.numIcuAdmits}</p>
-    </div>
-  </div>
-</div>
- 
-  </div>
+            <div className="flex flex-col md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5">
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">Patient ID:</p>
+                <p className="px-4 py-2">{exam.patientId}</p>
+              </div>
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">Exam ID:</p>
+                <p className="px-4 py-2">{exam.examId}</p>
+              </div>
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">Age:</p>
+                <p className="px-4 py-2">{exam.age}</p>
+              </div>
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">Sex:</p>
+                <p className="px-4 py-2">{exam.sex}</p>
+              </div>
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">Zip code:</p>
+                <p className="px-4 py-2">{exam.zip}</p>
+              </div>
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">BMI:</p>
+                <p className="px-4 py-2">{exam.bmi}</p>
+              </div>
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">Mortality:</p>
+                <p className="px-4 py-2">{exam.mortality}</p>
+              </div>
+              <div className="bg-white rounded-lg drop-shadow-lg mb-2">
+                <p className="font-medium px-4 py-2">Number of ICU admits:</p>
+                <p className="px-4 py-2">{exam.numIcuAdmits}</p>
+              </div>
+            </div>
+          </div>
+        </div>
   </div>
 
      

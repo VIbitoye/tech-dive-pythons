@@ -15,9 +15,9 @@ function Navbar() {
     <div id="navbar-container" className="fixed top-0 z-10 w-full bg-[#50936d] h-[4rem] flex items-center justify-center text-white text-lg drop-shadow-md">
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
-          <Link to="/exams" className="flex items-center">
-            <img src={logo} alt="" />
-            <span className="ml-2 font-semibold">Pythons Medical Center</span>
+          <Link to="/exams" className="flex items-center ">
+            <img className= "w-[3rem]" src={logo} alt="" />
+            <span className="ml-2 text-xl font-semibold">Pythons Medical Center</span>
           </Link>
         </div>
         <div className="hidden sm:flex sm:items-center font-semibold sm:ml-6">
