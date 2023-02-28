@@ -175,13 +175,13 @@ function Patient() {
                
                         <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td className=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
-                        <td className=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {`https://ohif-hack-diversity-covid.s3.amazonaws.com/covid-png/${exam.pngFileName}`} alt = 'x-ray photo'/></td>
+                        <td className=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {exam.pngFileName} alt = 'x-ray photo'/></td>
                         <td className=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.sex}</td> 
                         <td className=" px-6 py-5 border-gray-200 bg-white text-sm">{exam.bmi}</td> 
-                        <td className=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zipCode}</td> 
+                        <td className=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zip}</td> 
 
 
                         
