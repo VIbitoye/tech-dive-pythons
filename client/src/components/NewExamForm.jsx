@@ -180,7 +180,7 @@ function NewExamForm () {
 
             <div className="flex flex-col">
               <label htmlFor="pngFileName" className="font-medium text-gray-700">
-                Image:
+                Image URL:
               </label>
               <input
                 type="text"
