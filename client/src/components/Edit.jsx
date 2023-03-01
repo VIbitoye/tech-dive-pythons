@@ -37,6 +37,7 @@ function Edit() {
           sex: data.sex,
           zip: data.zip,
           bmi: data.bmi,
+          weight:data.weight,
           mortality: data.mortality,
           icu: data.icu,
           numIcuAdmits: data.numIcuAdmits,
@@ -97,7 +98,7 @@ function Edit() {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-8 mt-20">
+    <div className="container mx-auto px-4 sm:px-6 mt-20">
       {window.scrollTo(0, 0)}
       <div className='mt-10'>
        <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">Exam Details</h2>
@@ -115,7 +116,7 @@ function Edit() {
                   <div className="flex flex-col md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-10">
             <img className="w-full md:w-1/2 rounded-lg" src={exam.pngFileName} alt="x-ray photo" />
 
-            <div className="flex flex-col md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
+            <div className="flex flex-col w-full md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Patient ID:</p>
                 <p className="px-4 py-2">{exam.patientId}</p>
