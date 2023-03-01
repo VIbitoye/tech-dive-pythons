@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import LoadingScreen from './LoadingScreen';
 import { useParams } from 'react-router-dom';
 import Pagination from './Pagination';
 function Patient() {
   const [exams, setExams] = useState([]);
   const[search,setSearch] = useState("");
+  const [loading, setLoading] = useState();
   console.log(search);
   const [sortBy, setSortBy] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
@@ -26,6 +28,10 @@ function Patient() {
       };
   
       fetchExams();
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 400);
     }, []);
   
  //Pagination of the records
@@ -70,7 +76,8 @@ function Patient() {
 
 
   return (
-    
+    <>
+    {loading === false ? (
     <div className="container mx-auto px-4 sm:px-8 mt-[4rem]">
     <div className="py-4">
           
@@ -194,7 +201,10 @@ function Patient() {
         </div>
       </div>
       </div>
-      </div>
+      </div>) : (
+        <LoadingScreen/>
+      )}
+      </>
 
 
 
