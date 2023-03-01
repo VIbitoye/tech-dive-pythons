@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { useExamsContext } from '../hooks/useExamsContext';
 function Exam() {
@@ -17,10 +17,6 @@ function Exam() {
     fetchExams();
   }, []);
 
-  
-  if (loading) {
-    return <div className='h-screen flex items-center justify-center'>Loading...</div>;
-  }
 
 
   return (
@@ -31,12 +27,12 @@ function Exam() {
        </div>
        <div className="flex flex-col items-center justify-center">
                   <div className="flex flex-col md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-10">
-            <img className="w-full md:w-1/2 rounded-lg" src={exam.pngFileName} alt="x-ray photo" />
+            <img className="w-full md:w-1/2 rounded-lg max-h-[36rem]" src={exam.pngFileName} alt="x-ray photo" />
 
-            <div className="flex flex-col w-full md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5">
+            <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Patient ID:</p>
-                <p className="px-4 py-2">{exam.patientId}</p>
+                <Link to ={`/patient/${exam.patientId}`}><p className="px-4 font-semibold py-2 text-green-500">{exam.patientId}</p></Link>
               </div>
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Exam ID:</p>

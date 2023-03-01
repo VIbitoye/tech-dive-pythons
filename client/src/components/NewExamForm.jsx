@@ -64,9 +64,11 @@ function NewExamForm () {
       console.log('New exam created', json);
       dispatch({type: 'CREATE_EXAM', payload:json});
 
+   // navigate to the exam page
       navigate('/admin');
-      
-      // navigate to the exam page
+      window.location.reload()
+
+   
     }
   
     

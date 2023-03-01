@@ -21,7 +21,7 @@ function Exams() {
     }
     fetchExams()
     console.log('Data from state:', exams)
-    setTimeout(() => setLoading(false), 2000)
+    setTimeout(() => setLoading(false), 700)
    }, [])
 
  //Pagination of the records

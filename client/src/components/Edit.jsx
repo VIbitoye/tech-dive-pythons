@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate} from 'react-router-dom'
+import { useParams, Link} from 'react-router-dom'
 import { useEffect } from 'react';
 import { useExamsContext } from '../hooks/useExamsContext';
 
 function Edit() {
-  const navigate = useNavigate()
-  const { exam, dispatch, loading } = useExamsContext()
+
+  const { exam, dispatch} = useExamsContext()
   const { _id } = useParams()
-  const [updatedExam, setUpdatedExam] = useState(exam);
   const [notification, setNotification] = useState()
   const [editMode, setEditMode] = useState(false)
   const [formValues, setFormValues] = useState({
@@ -17,6 +16,7 @@ function Edit() {
     sex: exam.sex,
     zip: exam.zip,
     bmi: exam.bmi,
+    weight:exam.weight,
     mortality: exam.mortality,
     icu:exam.icu,
     numIcuAdmits: exam.numIcuAdmits,
@@ -80,25 +80,13 @@ function Edit() {
       setNotification(true);
       setTimeout(() => {
         setNotification(false);
-      }, 5000);
+      }, 4000);
     }
   
   }
 
-
-
-  
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-  
-        <p className="text-lg font-medium text-gray-600">Loading...</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="container mx-auto px-4 sm:px-6 mt-20">
+    <div className="container mx-auto px-4 sm:px-8 mt-20">
       {window.scrollTo(0, 0)}
       <div className='mt-10'>
        <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">Exam Details</h2>
@@ -107,19 +95,21 @@ function Edit() {
         {!editMode && (
           <>
             {notification && (
-          <div className="mt-4 bg-green-200 px-4 py-2 mb-7 rounded-md text-green-700">
+          <div className="mt-4 bg-green-200 font-semibold px-8 py-2 mb-1 border-2 border-green-500 rounded-md text-green-800">
             Exam data updated successfully!
           </div>
         )}
 
 <div className="flex flex-col items-center justify-center">
-                  <div className="flex flex-col md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-10">
-            <img className="w-full md:w-1/2 rounded-lg" src={exam.pngFileName} alt="x-ray photo" />
+   <button className="mt-4 px-10 py-2 text-lg  md:rounded-md text-white bg-blue-500 hover:bg-blue-600" onClick={() => setEditMode(true)}>Edit</button>
 
-            <div className="flex flex-col w-full md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
+                  <div className="flex flex-col  md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-6">
+            <img className="w-full md:w-1/2 rounded-lg sm:max-h-[25rem] md:max-h-[40rem]" src={exam.pngFileName} alt="x-ray photo" />
+
+            <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Patient ID:</p>
-                <p className="px-4 py-2">{exam.patientId}</p>
+                <Link to ={`/patient/${exam.patientId}`}><p className="px-4 font-semibold py-2 text-green-500">{exam.patientId}</p></Link>
               </div>
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Exam ID:</p>
@@ -161,14 +151,12 @@ function Edit() {
           </div>
         </div>
 
-
-            <button className="mt-4 px-4 py-2 md:rounded-md text-white bg-blue-500 hover:bg-blue-600" onClick={() => setEditMode(true)}>Edit</button>
           </>
         )}
         {editMode && (
-          <form className="mt-4 grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
-            <div className="col-span-1">
-            <label className="block mb-2 font-medium text-gray-600">
+          <form className="mt-4 grid grid-cols-2  gap-4" onSubmit={handleSubmit}>
+            <div className="col-span-1 ">
+            <label className="block mb-2 font-medium   text-gray-600">
                           Patient ID:
                           <input type="text" name="patientId" value={formValues.patientId} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
                           </label>

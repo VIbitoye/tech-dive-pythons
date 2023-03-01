@@ -34,7 +34,7 @@ function Admin() {
     }
     fetchExams()
     console.log('Data from state:', exams)  
-    setTimeout(() => setLoading(false), 2000)
+    setTimeout(() => setLoading(false),700)
    }, [])
 
 
@@ -76,7 +76,7 @@ function Admin() {
       setNotification(true);
       setTimeout(() => {
         setNotification(false);
-      }, 2000);
+      }, 2500);
     }
   }
 
@@ -128,7 +128,7 @@ function Admin() {
     <>
     {loading === false ? (
 <div className="container mx-auto px-4 sm:px-8 mt-[4rem]">
-{window.scrollTo(0, 0)}
+{window.scrollTo(0, 50)}
     <div className="py-4">
           
            {/*header */}
@@ -142,7 +142,7 @@ function Admin() {
                 onChange={searchHandler}
                 value={search}
                 type="search"
-                className="form-control relative flex-auto w-full md:w-3/4 lg:w-1/2 xl:w-2/3 mx-auto mb-5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none"
+                className="form-control relative flex-auto w-full md:w-3/4 lg:w-1/2 xl:w-2/3 mx-auto mb-3 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none"
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedby="button-addon2"
@@ -152,7 +152,7 @@ function Admin() {
       <div className='flex flex-col items-center'>
          
       {notification && (
-          <div className="mt-4 bg-red-200 px-4 py-2 mb-7 rounded-md text-red-700">
+          <div className="mt-1 px-8 bg-red-200 border-2 border-red-400 font-semibold py-2 mb-7 rounded-md text-red-800">
             Exam has been deleted!
           </div>
         )}
