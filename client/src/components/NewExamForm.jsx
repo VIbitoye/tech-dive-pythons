@@ -74,7 +74,6 @@ function NewExamForm () {
 
   return (
     <div className="flex flex-col items-center mt-20 h-screen ">
-      {window.scrollTo(0, 0)}
       <div className='flex items'><h2 className='text-4xl font-semibold mt-10 mb-10'>Create Exam</h2></div>
       <div className="bg-white drop-shadow-lg rounded-lg border-2 px-6 py-8 w-5/6 max-w-5xl flex flex-row justify-center">
         <form className="grid grid-cols-2 gap-6 items-center justify-center w-4/5" onSubmit={handleSubmit}>
@@ -201,7 +200,7 @@ function NewExamForm () {
                 type="number"
                 id="numIcuAdmits"
                 className="text-center rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
-                value={icu === 'Y' ? Math.max(numIcuAdmits || 1, 1) : 0 || 0}
+                value={icu === 'Y' ? Math.max(numIcuAdmits || 1, 1) :  0}
                 onChange={(event) => setNumIcuAdmits(event.target.value)}
                 required
               />

@@ -1,18 +1,16 @@
 import React from 'react'
 import Pagination from './Pagination';
+import LoadingScreen from './LoadingScreen';
 import { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useExamsContext } from '../hooks/useExamsContext';
 function Exams() {
+  const [loading, setLoading] = useState(true)
   const {exams, dispatch} = useExamsContext()
   const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
   //Fetching the API
   useEffect(() => {
     const fetchExams = async () =>{
-      if (exams === null) {
-        return <div>Loading...</div>
-      }
-      
     const response = await fetch('http://localhost:5000/api/exams')
     const data = await response.json()
     if (response.ok){
@@ -23,6 +21,7 @@ function Exams() {
     }
     fetchExams()
     console.log('Data from state:', exams)
+    setTimeout(() => setLoading(false), 2000)
    }, [])
 
  //Pagination of the records
@@ -31,7 +30,7 @@ function Exams() {
  const lastRecordIndex = currentPage * perPage;
  const firstRecordIndex = lastRecordIndex - perPage;
 
-
+ 
 
 
 const[search,setSearch] = useState("");
@@ -80,6 +79,8 @@ const [sortBy, setSortBy] = useState(null);
  const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
  const totalRecords = filteredItems?.length;
   return (
+      <>
+    {loading === false ? (
     <div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
     <div className="py-4">
           
@@ -217,7 +218,10 @@ const [sortBy, setSortBy] = useState(null);
         setCurrentPage = {setCurrentPage}
         />
     </div>
-  </div>
+  </div>) : (
+        <LoadingScreen/>
+      )}
+      </>
   )
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import Pagination from './Pagination';
 import { useNavigate } from 'react-router-dom';
+import LoadingScreen from './LoadingScreen';
 import { useState, useEffect } from 'react';
 import { Link} from "react-router-dom";
 import { useExamsContext } from '../hooks/useExamsContext';
@@ -17,16 +18,12 @@ function Admin() {
   
   //modal for confirming deletion of record
   const [showModal, setShowModal] = useState(false);
-
+  const [loading, setLoading] = useState(true)
   //initialization of context
   const {exams, dispatch} = useExamsContext()
   //Fetching the API
   useEffect(() => {
     const fetchExams = async () =>{
-      if (exams === null) {
-        return <div>Loading...</div>
-      }
-      
     const response = await fetch('http://localhost:5000/api/exams')
     const data = await response.json()
     if (response.ok){
@@ -36,11 +33,15 @@ function Admin() {
     }
     }
     fetchExams()
-    console.log('Data from state:', exams)
+    console.log('Data from state:', exams)  
+    setTimeout(() => setLoading(false), 2000)
    }, [])
 
 
- 
+   useEffect(() => {
+  
+  }, [])
+
  //Pagination of the records
   const [currentPage, setCurrentPage] = useState(1)
   const [perPage, setPerPage] = useState (10);
@@ -75,7 +76,7 @@ function Admin() {
       setNotification(true);
       setTimeout(() => {
         setNotification(false);
-      }, 3000);
+      }, 2000);
     }
   }
 
@@ -123,7 +124,9 @@ function Admin() {
    //for reducing the number of pages based on search results
    const totalRecords = filteredItems?.length;
 
-  return (
+   return (
+    <>
+    {loading === false ? (
 <div className="container mx-auto px-4 sm:px-8 mt-[4rem]">
 {window.scrollTo(0, 0)}
     <div className="py-4">
@@ -302,8 +305,11 @@ function Admin() {
         setCurrentPage = {setCurrentPage}
         />
     </div>
-  </div>
-  )
+  </div>) : (
+        <LoadingScreen />
+      )}
+      </>
+  );
 }
 
 export default Admin
