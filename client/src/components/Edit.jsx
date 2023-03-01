@@ -101,7 +101,7 @@ function Edit() {
         )}
 
 <div className="flex flex-col items-center justify-center">
-   <button className="mt-4 px-10 py-2 text-lg  md:rounded-md text-white bg-blue-500 hover:bg-blue-600" onClick={() => setEditMode(true)}>Edit</button>
+   <button className="mt-4 px-10 py-2 text-lg  rounded-md text-white bg-blue-500 hover:bg-blue-600" onClick={() => setEditMode(true)}>Edit</button>
 
                   <div className="flex flex-col  md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-6">
             <img className="w-full md:w-1/2 rounded-lg sm:max-h-[25rem] md:max-h-[40rem]" src={exam.pngFileName} alt="x-ray photo" />
