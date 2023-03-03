@@ -11,7 +11,6 @@ This application will allow doctors to:
 
 ## 🎨 Wireframe/ Diagram
 <div>
-<img src="client/public/medical_logo.png" width= 400px>
 <img src="client/public/Tech_Dive_Site_Map.png" width= 400px>
 </div>
 
