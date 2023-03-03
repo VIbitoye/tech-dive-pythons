@@ -8,7 +8,7 @@ function Exam() {
 
   useEffect(() => {
     const fetchExams = async () => {
-      const response = await fetch(`http://localhost:5000/api/exams/${_id}`);
+      const response = await fetch(`https://pythons-covid-database-backend.onrender.com/api/exams/${_id}`);
       const data = await response.json();
       if (response.ok) {
         dispatch({ type: 'GET_EXAM', payload: data });

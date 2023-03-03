@@ -22,7 +22,7 @@ function Admin() {
   //Fetching the API
   useEffect(() => {
     const fetchExams = async () =>{
-    const response = await fetch('http://localhost:5000/api/exams')
+    const response = await fetch('https://pythons-covid-database-backend.onrender.com/api/exams')
     const data = await response.json()
     if (response.ok){
     

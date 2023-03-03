@@ -35,7 +35,7 @@ function NewExamForm () {
       mortality,
     };
   
-    const response = await fetch('http://localhost:5000/api/exams', {
+    const response = await fetch('https://pythons-covid-database-backend.onrender.com/api/exams', {
       method: 'POST',
       body: JSON.stringify(newExam),
       headers: {

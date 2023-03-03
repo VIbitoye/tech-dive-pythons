@@ -19,7 +19,7 @@ function Patient() {
     useEffect(() => {
       const fetchExams = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/api/exams/patient/${patientId}`);
+          const response = await fetch(`https://pythons-covid-database-backend.onrender.com/api/exams/patient/${patientId}`);
           const data = await response.json();
           setExams(data.exams);
         } catch (error) {
