@@ -1,14 +1,7 @@
 import React, { useReducer } from 'react'
 import {createContext} from 'react'
-import { useExamsContext } from '../hooks/useExamsContext'
+
 export const ExamsContext = createContext()
-const initialState = {
-  exams: [],
-  exam: null,
-  loading: false,
-  initialExam: null, // new state variable to store initial exam data
-  error: null,
-};
 
 export const examsReducer = (state, action) => {
     switch (action.type) {

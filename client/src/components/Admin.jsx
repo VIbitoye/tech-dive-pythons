@@ -1,6 +1,5 @@
 import React from 'react'
 import Pagination from './Pagination';
-import { useNavigate } from 'react-router-dom';
 import LoadingScreen from './LoadingScreen';
 import { useState, useEffect } from 'react';
 import { Link} from "react-router-dom";
@@ -8,7 +7,6 @@ import { useExamsContext } from '../hooks/useExamsContext';
 function Admin() {
   const [selectedExam, setSelectedExam] = useState();
   const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
-  const navigate = useNavigate();
   const [notification, setNotification] = useState()
   const[search,setSearch] = useState("");
   console.log(search);
