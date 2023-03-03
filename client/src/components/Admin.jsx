@@ -54,7 +54,7 @@ function Admin() {
 // Will delete the selected exam 
   const handleDeleteExam = async (selectedExam) => {
     const response = await fetch(
-      `http://localhost:5000/api/exams/${selectedExam._id}`,
+      `https://pythons-covid-database-backend.onrender.com/api/exams/${selectedExam._id}`,
       {
         method: 'DELETE',
         headers: {

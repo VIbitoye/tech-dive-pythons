@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useParams, Link} from 'react-router-dom'
 import { useEffect } from 'react';
 import { useExamsContext } from '../hooks/useExamsContext';
+import LoadingScreen from './LoadingScreen';
 
 function Edit() {
-
+    const [loading, setLoading] = useState(true);
   const { exam, dispatch} = useExamsContext()
   const { _id } = useParams()
   const [notification, setNotification] = useState()
@@ -26,7 +27,7 @@ function Edit() {
 //fetching exam data
   useEffect(() => {
     const fetchExam = async () => {
-      const response = await fetch(`http://localhost:5000/api/exams/${_id}`);
+      const response = await fetch(`https://pythons-covid-database-backend.onrender.com/api/exams/${_id}`);
       const data = await response.json();
       if (response.ok) {
         dispatch({ type: 'GET_EXAM', payload: data });
@@ -46,6 +47,7 @@ function Edit() {
       }
     };
     fetchExam();
+    setTimeout(() => setLoading(false), 800)
   },  []);
 
 
@@ -86,6 +88,9 @@ function Edit() {
   }
 
   return (
+
+    <>
+    {loading === false ? (
     <div className="container mx-auto px-4 sm:px-8 mt-20">
       {window.scrollTo(0, 0)}
       <div className='mt-10'>
@@ -216,7 +221,6 @@ function Edit() {
                           </form>
                           )}
    </div>                       
-</div>                           
-                          );
-                          }
+</div> ): (<LoadingScreen/>)} </>                        
+  )}     
 export default Edit

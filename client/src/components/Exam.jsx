@@ -1,9 +1,11 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+import LoadingScreen from './LoadingScreen';
 import { useExamsContext } from '../hooks/useExamsContext';
 function Exam() {
-  const { exam, dispatch, loading } = useExamsContext();
+  const { exam, dispatch} = useExamsContext();
+  const [loading, setLoading] = useState(true);
   const { _id } = useParams();
 
   useEffect(() => {
@@ -15,12 +17,15 @@ function Exam() {
       }
     };
     fetchExams();
+    setTimeout(() => setLoading(false), 700)
   }, []);
 
 
 
   return (
 
+       <>
+    {loading === false ? (
     <div className="container mx-auto px-4 sm:px-6 mt-20">
       <div className='mt-10'>
        <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">Exam Details</h2>
@@ -73,8 +78,9 @@ function Exam() {
             </div>
           </div>
         </div>
-  </div>
-
+  </div>) : (
+        <LoadingScreen/>
+      )} </>
      
   )
 }
