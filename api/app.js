@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+const history = require('connect-history-api-fallback');
 
 var examsRouter = require('./routes/exams')
 var usersRouter = require('./routes/users')
@@ -25,13 +26,14 @@ app.use('/api/exams', examsRouter);
 //users route
 app.use('/api/users', usersRouter)
 
+app.use(history());
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 app.get('/', (req, res) =>{
   res.json({mssg: 'Welcome to the app'})
 })
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
+
 
 //connect to db using mongoose
 mongoose.set("strictQuery", false);
