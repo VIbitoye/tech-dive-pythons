@@ -1,29 +1,58 @@
-# Hack.Diversity Tech Dive Template
+![](client/public/medical_logo.png)
 
-## Getting Started
+# 👩‍⚕️ Pythons Medical Center 👨‍⚕️
+Pythons Medical Center is an web application for doctors to track patient information related to COVID-19 using radiology reports. The primary goal of this application is to provide doctors with an easy-to-use interface that allows them to quickly record and access radiology reports for patients they are treating.
 
-This skeleton contains two different applications -- a front end, or "client," created with "Create React App," and a back end, or "API," created with Express. 
+## 👩🏽‍🚀 Feature List:
+This application will allow doctors to:
+* view a list of patients, their radiology reports, and x-ray images
+* can create, edit, and delete reports as needed
+* include advanced search features to allow doctors to quickly find reports for a specific patient
 
-In order to make both of them work together, you'll need to run both, but you can run just one or the other to start. As you begin working on this project, you'll first focus on the client, so you can more or less ignore the API portion of the code for now.
+## 🎨 Wireframe/ Diagram
+<div>
+<img src="client/public/medical_logo.png" width= 400px>
+<img src="client/public/Tech_Dive_Site_Map.png" width= 400px>
+</div>
 
-## Client
-In order to run the client, you'll run the following commands:
+## 🚀 MVP:
+The application will be designed to support the Create, Read, Update, and Delete (CRUD) operations for structured radiology reports as an assessment of x-ray images for exams of patients with COVID-19. The system will have a user-friendly interface that allows doctors to upload x-ray images, create radiology reports, and manage patient information. Overall, this web application will provide doctors with an efficient and effective tool for tracking patient information related to COVID-19 using radiology reports.
 
-```bash
-cd client/
-npm i
-npm start
-```
 
-You should then be able to visit `localhost:3000` in your browser and see the client running. If you make changes in the `App.js` file, you should see them reflected.
+## 🥳 Post MVP (Extras)
+* Update your data model to split “reports” into a separate table. This allows us to separate the subjective assessment of an exam by a radiologist from the key objective features of the exam, so that we can compare multiple assessments of the same exam. 
+* Import data from a CSV into your tables (using a script is fine)
+* Export data from the tables into a CSV for sharing (using a script is fine)
+* Add authentication to your web application by using existing technology like Google Oauth
+* Add automated testing for the server
 
-## API
-In order to run the server, you'll run the following commands:
 
-```bash
-cd api/
-npm i
-npm run dev
-```
+## 🔨 Back-end Endpoints
 
-You should then be able to visit `localhost:9000` in your browser and see the server running.
+Routes:
+* view all: "/patient/:patientId"
+* create new: "/"
+* update one: "/:id"
+
+## 📦 List Dependencies 
+
+Front-End:
+* React
+* HTML
+* CSS
+* Axios
+
+Backend:
+* Node.js
+* Express
+* MongoDB
+
+## 👨‍💻 Authors
+* Victor Ibitoye
+* Tilon Bobb
+* Haidy Hussein
+* Natasha Piedrabuena
+* George Sucuzhanay
+
+## ✨ Special Thanks:
+* Hack.Diversity Team
