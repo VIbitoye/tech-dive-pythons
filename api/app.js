@@ -5,7 +5,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-const history = require('connect-history-api-fallback');
+var history = require('connect-history-api-fallback');
+
 
 var examsRouter = require('./routes/exams')
 var usersRouter = require('./routes/users')
@@ -16,7 +17,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(history());
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 require('dotenv').config();
 
@@ -25,9 +27,6 @@ app.use('/api/exams', examsRouter);
 
 //users route
 app.use('/api/users', usersRouter)
-
-app.use(history());
-app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.get('/', (req, res) =>{
   res.json({mssg: 'Welcome to the app'})
