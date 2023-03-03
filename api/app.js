@@ -24,13 +24,16 @@ app.use('/api/exams', examsRouter);
 
 //users route
 app.use('/api/users', usersRouter)
-
+app.use('/client')
 app.get('/', (req, res) =>{
   res.json({mssg: 'Welcome to the app'})
 })
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-//connect to db uisng mongoose
+//connect to db using mongoose
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONG_URI)
   .then(() => {
@@ -42,11 +45,6 @@ mongoose.connect(process.env.MONG_URI)
   .catch((error) => {
     console.log(error)
   })
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 
 // error handler
 app.use(function(err, req, res, next) {
