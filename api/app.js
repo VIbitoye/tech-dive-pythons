@@ -24,7 +24,7 @@ app.use('/api/exams', examsRouter);
 
 //users route
 app.use('/api/users', usersRouter)
-app.use('/client')
+
 app.get('/', (req, res) =>{
   res.json({mssg: 'Welcome to the app'})
 })
