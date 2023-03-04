@@ -40,7 +40,13 @@ app.get('/*', function (req, res) {
 
 //connect to db uisng mongoose
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONG_URI)
+const mongooseOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  keepAlive: true,
+  keepAliveInitialDelay: 300000 // 5 minutes
+};
+mongoose.connect(process.env.MONG_URI, mongooseOptions)
   .then(() => {
     //listen for requests
   app.listen(process.env.PORT, () => {
