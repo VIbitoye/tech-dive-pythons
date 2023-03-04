@@ -1,7 +1,8 @@
 var createError = require('http-errors');
 const mongoose = require('mongoose');
 var express = require('express');
-var path = require('path');
+const history = require('connect-history-api-fallback');
+const path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
@@ -16,6 +17,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
+
+app.use(history({
+  disableDotRule: true,
+  verbose: true
+}));
+
+// serve static files from the build directory (again)
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 require('dotenv').config();
 
