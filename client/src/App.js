@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Exams from './components/Exams';
 import Exam from './components/Exam';
 import Login from './components/Uncompleted/Login';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Redirect } from 'react-router-dom';
 import Patient from './components/Patient';
 import Edit from './components/Edit';
 import NewExamForm from './components/NewExamForm';
