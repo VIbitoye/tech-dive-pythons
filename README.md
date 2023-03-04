@@ -35,7 +35,8 @@ The application will be designed to support the Create, Read, Update, and Delete
 Routes:
 * view all: "/patient/:patientId"
 * create new: "/"
-* update one: "/:id"
+* update one: "/:_id"
+* delete one: "/:_id"
 
 ## 📦 List Dependencies 
 
@@ -43,7 +44,7 @@ Front-End:
 * React
 * HTML
 * CSS
-* Axios
+* Tailwind
 
 Backend:
 * Node.js
