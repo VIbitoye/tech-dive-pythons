@@ -23,8 +23,6 @@ app.use(history({
   verbose: true
 }));
 
-// serve static files from the build directory (again)
-app.use(express.static(path.join(__dirname, 'build')));
 
 
 require('dotenv').config();
