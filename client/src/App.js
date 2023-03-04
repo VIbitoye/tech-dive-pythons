@@ -5,7 +5,6 @@ import Exams from './components/Exams';
 import Exam from './components/Exam';
 import Login from './components/Uncompleted/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import Patient from './components/Patient';
 import Edit from './components/Edit';
 import NewExamForm from './components/NewExamForm';
@@ -19,7 +18,7 @@ function App() {
   <Router> 
     <Navbar/>
     <Routes>   
-    <Route exact path="/" element={<Redirect to="/exams" />} />
+      <Route path = '/' element = {<Exams/>}/>
       <Route path = '/exams' element = {<Exams/>}/> 
        <Route path = '/patient/:patientId' element  = {<Patient/>}/>
        <Route path = '/exams/:_id/edit' element = {<Edit/>}/>
