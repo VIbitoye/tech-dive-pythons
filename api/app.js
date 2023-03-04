@@ -1,8 +1,7 @@
 var createError = require('http-errors');
 const mongoose = require('mongoose');
 var express = require('express');
-const history = require('connect-history-api-fallback');
-const path = require('path');
+var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
@@ -16,14 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.use(history({
-  disableDotRule: true,
-  verbose: true
-}));
-
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 require('dotenv').config();
 
