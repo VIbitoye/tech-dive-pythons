@@ -3,7 +3,7 @@
 # 👩‍⚕️ Pythons Medical Center 👨‍⚕️
 Pythons Medical Center is an web application for doctors to track patient information related to COVID-19 using radiology reports. The primary goal of this application is to provide doctors with an easy-to-use interface that allows them to quickly record and access radiology reports for patients they are treating.
 <div>
-<img src = "client/public/Tech_Dive_Website.png"  width=800px>
+<img src = "client\public\Tech_Dive_Website.png"  width=800px>
 </div>
 ## 👩🏽‍🚀 Feature List:
 This application will allow doctors to:
