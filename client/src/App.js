@@ -18,7 +18,6 @@ function App() {
   <Router> 
     <Navbar/>
     <Routes>   
-      <Route path = '/' element = {<Exams/>}/>
       <Route path = '/exams' element = {<Exams/>}/> 
        <Route path = '/patient/:patientId' element  = {<Patient/>}/>
        <Route path = '/exams/:_id/edit' element = {<Edit/>}/>
