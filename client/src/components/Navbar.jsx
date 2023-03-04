@@ -17,7 +17,7 @@ function Navbar() {
         <div className="flex items-center">
           <Link to="/exams" className="flex items-center ">
             <img className= "md:w-[3rem]" src={logo} alt="" />
-            <span className="ml-2 text-base md:text-xl font-semibold">Pythons Medical Center</span>
+            <span className="ml-2 text-sm md:text-xl font-semibold">Pythons Medical Center</span>
           </Link>
         </div>
         <div className="hidden sm:flex sm:items-center font-semibold sm:ml-6">
@@ -36,10 +36,10 @@ function Navbar() {
         </button>
       </div>
       <div className={`sm:hidden ease-in-out mobile-menu mt-10 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-        <Link to="/exams" className="block px-3 py-2 text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] rounded-md">
+        <Link to="/exams" className="block px-2 py-2 text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] rounded-md">
           EXAMS
         </Link>
-        <Link to="/admin" className="block px-3 py-2 mt-1 text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] rounded-md">
+        <Link to="/admin" className="block px-2 py-2 mt-1 text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] rounded-md">
           ADMINISTRATION
         </Link>
       </div>
