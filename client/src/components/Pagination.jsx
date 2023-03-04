@@ -11,7 +11,7 @@ function Pagination({totalRecords, perPage, currentPage, setCurrentPage}) {
     {pages.map((page, index) => {
       return (
         <button
-          className={`flex items-center sm:w-[1rem] md:w-[3.2rem] focus:bg-green-400 active:bg-green-400 hover:bg-green-200 text-gray-600 font-semibold border-r border-gray-400 justify-center px-4 ${
+          className={`flex items-center sm:w-[1rem] md:w-[3.2rem] focus:bg-green-400 active:bg-green-400 hover:bg-green-200 text-gray-600 font-semibold border-r border-gray-400 justify-center px-2 ${
             currentPage === page ? 'bg-green-400' : ''
           } `}
           key={index}
