@@ -5,8 +5,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var history = require('connect-history-api-fallback');
-
 
 var examsRouter = require('./routes/exams')
 var usersRouter = require('./routes/users')
@@ -17,8 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(history());
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 require('dotenv').config();
 
@@ -27,14 +24,13 @@ app.use('/api/exams', examsRouter);
 
 //users route
 app.use('/api/users', usersRouter)
-
+app.use('/client')
 app.get('/', (req, res) =>{
   res.json({mssg: 'Welcome to the app'})
 })
 
 
-
-//connect to db using mongoose
+//connect to db uisng mongoose
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONG_URI)
   .then(() => {
@@ -46,6 +42,11 @@ mongoose.connect(process.env.MONG_URI)
   .catch((error) => {
     console.log(error)
   })
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
 // error handler
 app.use(function(err, req, res, next) {
