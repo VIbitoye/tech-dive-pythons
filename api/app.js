@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 require('dotenv').config();
 
@@ -24,7 +24,7 @@ app.use('/api/exams', examsRouter);
 
 //users route
 app.use('/api/users', usersRouter)
-app.use('/client')
+
 app.get('/', (req, res) =>{
   res.json({mssg: 'Welcome to the app'})
 })
