@@ -172,7 +172,7 @@ function Admin() {
       {/*table*/}
       
       <div className="px-5 py-4 overflow-x-auto">
-          <div className="shadow-md rounded-lg overflow-hidden">
+          <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
 
           <table className=" table-auto w-full leading-normal text-left">
             {/*table headers
