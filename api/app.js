@@ -43,11 +43,11 @@ mongoose.set("strictQuery", false);
 const mongooseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  poolSize: 10,
-  autoReconnect: true,
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
   keepAlive: true,
-  socketTimeoutMS: 60000,
-  keepAliveInitialDelay: 300000 // 5 minutes
+  keepAliveInitialDelay: 300000, // 5 minutes
+  retryWrites: true
 };
 mongoose.connect(process.env.MONG_URI, mongooseOptions)
   .then(() => {
