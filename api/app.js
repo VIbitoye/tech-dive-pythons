@@ -38,12 +38,15 @@ app.get('/*', function (req, res) {
 })
 
 
-//connect to db uisng mongoose
+//connect to db using mongoose
 mongoose.set("strictQuery", false);
 const mongooseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  poolSize: 10,
+  autoReconnect: true,
   keepAlive: true,
+  socketTimeoutMS: 60000,
   keepAliveInitialDelay: 300000 // 5 minutes
 };
 mongoose.connect(process.env.MONG_URI, mongooseOptions)
