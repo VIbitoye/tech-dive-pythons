@@ -46,7 +46,7 @@ const mongooseOptions = {
   serverSelectionTimeoutMS: 5000,
   socketTimeoutMS: 45000,
   keepAlive: true,
-  keepAliveInitialDelay: 300000, // 5 minutes
+  keepAliveInitialDelay: 300000000, // 5 minutes
   retryWrites: true
 };
 mongoose.connect(process.env.MONG_URI, mongooseOptions)
