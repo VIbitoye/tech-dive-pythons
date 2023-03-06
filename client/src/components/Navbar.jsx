@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from './medical_logo.png'
+import './Navbar.css'
 import { useState } from 'react';
 function Navbar() {
 
@@ -29,12 +30,12 @@ function Navbar() {
           </Link>
         </div>
         <div className="sm:hidden relative">
-  <button className="mobile-menu-button mt-2 right-0" onClick={toggleMobileMenu}>
+  <button className="mobile-menu-button mt-2 right-0 " onClick={toggleMobileMenu}>
     <svg className="w-8 h-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   </button>
-  <div className={`sm:hidden ease-in-out mobile-menu mt-2 ${isMobileMenuOpen ? 'block' : 'hidden'} bg-[#50936d] ml-2 py-1 px-1 h-fit rounded absolute -right-4 animated slide-in-left`}>
+  <div className={`sm:hidden ease-in-out mobile-menu mt-2 ${isMobileMenuOpen ? 'block dropdown' : 'hidden'} bg-[#50936d] ml-2 py-1 px-1 h-fit rounded absolute -right-4`}>
 
     <Link to="/exams" className="block px-2 py-1 tracking-widest text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] rounded-md">
       EXAMS
