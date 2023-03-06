@@ -79,7 +79,7 @@ const [sortBy, setSortBy] = useState(null);
  const currentRecords = filteredItems && filteredItems.slice(firstRecordIndex, lastRecordIndex)
  const totalRecords = filteredItems?.length;
   return (
-      <>
+     <>
     {loading === false ? (
     <div className="container mx-auto px-4 sm:px-8  mt-[4rem]">
     <div className="py-4">
