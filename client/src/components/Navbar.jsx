@@ -21,11 +21,13 @@ function Navbar() {
             <span className="ml-2 text-sm md:text-xl font-semibold">Pythons Medical Center</span>
           </Link>
         </div>
-        <div className="hidden sm:flex sm:items-center font-semibold sm:ml-6">
-          <Link to="/exams" className="flex items-center px-3 py-2 rounded-md text-white hover:bg-[#266140] bg-[#2e7c4d]">
+        <div className="hidden sm:flex sm:items-center font-semibold sm:ml-6 gap-3">
+          <Link to="/exams" className=" bg-[#2e7c4d] text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button">
             EXAMS
           </Link>
-          <Link to="/admin" className="flex items-center px-3 py-2 ml-4 text-white bg-[#2e7c4d] hover:bg-[#266140] rounded-md">
+          <Link to="/admin" className="bg-[#2e7c4d] text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button">
             ADMINISTRATION
           </Link>
         </div>

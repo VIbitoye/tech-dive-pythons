@@ -156,7 +156,7 @@ function Admin() {
         )}
           <Link
             to='/exams/new'
-            className='flex items-center justify-center w-[9rem] px-4 py-2 bg-[#50936d] drop-shadow-md text-white rounded-md text text-lg font-semibold'
+            className='flex items-center justify-center w-[9rem] px-4 py-2 bg-[#50936d] active:bg-green-600 drop-shadow-md text-white rounded-full text text-lg font-semibold'
           >
             Create Exam
           </Link>
@@ -272,15 +272,16 @@ function Admin() {
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm"> {exam.zip}</td>
                           <td className=" px-5 py-5 border-gray-200 text-sm font-semibold text-red-500">
                           <button onClick={() => {setSelectedExam(exam); setShowModal(true)}}> Delete</button></td>
+                          
                           {/*when the delete button is clicked this confirmation modal should render */}
-                           {showModal && selectedExam && (<div className = "fixed inset-0 bg-transparent bg-opacity-60 backdrop-blur-sm flex justify-center items-center  ">
-                         <div className = "p-2 rounded w-[50rem] h-[20rem] bg-white border-2">
-                          <div className = 'flex flex-col items-center justify-center'>
-                        <div className = " text-4xl mt-10">Delete Exam</div>
-                        <p className = 'md:text-2xl mt-7 sm:text-lg'>Are you sure you want to permanently delete this exam?</p>
-                        <div className='flex flex-row gap-10 mt-10  font-semibold text-white text-xl'>
-                        <button onClick={() => handleDeleteExam(selectedExam)} className = " flex  items-center justify-center rounded bg-red-800 w-[6rem] h-[3rem] drop-shadow-md " >Delete</button>
-                        <button onClick={handleCloseModal} className = "  flex items-center justify-center rounded bg-[#399d4d] w-[6rem] h-[3rem] drop-shadow-md " >Cancel</button>
+                           {showModal && selectedExam && (<div className = "fixed inset-0 bg-transparent bg-opacity-10 bg-black h-screen  flex justify-center items-center  ">
+                         <div className = "p-2 rounded sm:w-[30rem] w-[20rem]  md:w-[45rem] h-[18rem] bg-white border-2">
+                          <div className = 'flex flex-col items-center text-center font-semibold justify-center'>
+                        <div className = " md:text-4xl text-2xl mt-10 ">Delete Exam</div>
+                        <p className = 'md:text-2xl mt-7 sm:text-lg font-normal items-center'>Are you sure you want to permanently delete this exam?</p>
+                        <div className='flex flex-row gap-10 mt-10  text-white text-xl'>
+                        <button onClick={() => handleDeleteExam(selectedExam)} className = " bg-red-700 text-white active:bg-red-500  uppercase text-sm px-7 py-4 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " >Delete</button>
+                        <button onClick={handleCloseModal} className = " bg-green-600 text-white active:bg-green-500 uppercase text-sm px-7 py-4 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" >Cancel</button>
                        </div>
                        
                        </div>
@@ -293,6 +294,7 @@ function Admin() {
              
             </tbody>
           </table>
+
         </div>
     
       </div>

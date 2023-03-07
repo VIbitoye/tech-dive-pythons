@@ -106,9 +106,11 @@ function Edit() {
         )}
 
 <div className="flex flex-col items-center justify-center">
-   <button className="mt-4 px-10 py-2 text-lg  rounded-md text-white bg-blue-500 hover:bg-blue-600" onClick={() => setEditMode(true)}>Edit</button>
+   <button className="bg-[#2c73e6] text-white active:bg-blue-600 font-bold uppercase mt-2 text-sm px-6 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setEditMode(true)}>Edit</button>
 
-                  <div className="flex flex-col  md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-6">
+                  <div className="flex flex-col  md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-4">
             <img className="w-full md:w-1/2 rounded-lg sm:max-h-[25rem] md:max-h-[40rem]" src={exam.pngFileName} alt="x-ray photo" />
 
             <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
@@ -215,8 +217,8 @@ function Edit() {
                           </label>
                           </div>
                           <div className="col-span-2">
-                              <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:bg-blue-700 focus:outline-none">Submit</button>
-                            <button className="ml-4 px-4 py-2 rounded-md text-white bg-red-500 hover:bg-red-600" onClick={handleCancel}>Cancel</button>
+                              <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:bg-blue-700 focus:outline-none">Submit</button>
+                            <button className="ml-4 px-4 py-2 rounded text-white bg-red-500 hover:bg-red-600" onClick={handleCancel}>Cancel</button>
                             </div>
                           </form>
                           )}
