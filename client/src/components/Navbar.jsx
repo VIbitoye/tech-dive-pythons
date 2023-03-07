@@ -40,10 +40,10 @@ function Navbar() {
   </button>
   <div className={`sm:hidden ease-in-out mobile-menu mt-2 ${isMobileMenuOpen ? 'block dropdown' : 'hidden'} bg-[#50936d] ml-2 py-1 px-1 h-fit rounded-md absolute -right-4 animated slide-in-left`}>
 
-    <Link to="/exams" className="block px-2 py-1 tracking-wider text-left text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] ">
+    <Link to="/exams" onClick={toggleMobileMenu} className="block px-2 py-1 tracking-wider text-left text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] ">
       EXAMS
     </Link>
-    <Link to="/admin" className="block px-2 py-1 mt-1 text-left text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] ">
+    <Link to="/admin" onClick={toggleMobileMenu}className="block px-2 py-1 mt-1 text-left text-white font-semibold bg-[#2e7c4d] hover:bg-[#266140] ">
       ADMINISTRATION
     </Link>
   </div>
