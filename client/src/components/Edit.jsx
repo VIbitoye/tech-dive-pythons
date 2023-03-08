@@ -55,10 +55,18 @@ function Edit() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    if (name === 'icu' && value === 'N') {
+      setFormValues({
+        ...formValues,
+        [name]: value,
+        numIcuAdmits: 0,
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        [name]: name === 'numIcuAdmits' ? parseInt(value, 10) : value,
+      });
+    }
   };
 
   const handleCancel = () => {
@@ -228,7 +236,10 @@ function Edit() {
                           </label>
                           <label className="block mb-2 font-medium text-gray-600">
                           Number of ICU admits:
-                          <input type="number" name="numIcuAdmits" value={formValues.icu === 'Y' ? Math.max(formValues.numIcuAdmits || 1, 1) : 0} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
+                          <input type="number" name="numIcuAdmits"
+                          
+                           value={formValues.icu === 'Y' ? Math.max(formValues.numIcuAdmits || 1, 1) : 0}
+                            onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required min="0"/>
                           </label>
                           </div>
                           <div className="col-span-2">
