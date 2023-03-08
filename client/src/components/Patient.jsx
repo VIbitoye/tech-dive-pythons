@@ -7,6 +7,7 @@ import Pagination from './Pagination';
 function Patient() {
   const [exams, setExams] = useState([]);
   const[search,setSearch] = useState("");
+  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
   const [loading, setLoading] = useState();
   console.log(search);
   const [sortBy, setSortBy] = useState(null);
@@ -67,10 +68,8 @@ function Patient() {
       }
     }));
   };
-  const filteredItems = exams.filter((exam) =>
-  exam.examId.toLowerCase().includes(search.toLowerCase()) || exam.patientId.toLowerCase().includes(search.toLowerCase()) || exam.sex.toLowerCase().includes(search.toLowerCase()) || exam.mortality.toLowerCase().includes(search.toLowerCase()) || exam.zip.toLowerCase().includes(search.toLowerCase())
-  || exam.numIcuAdmits.toLowerCase().includes(search.toLowerCase())
-  || exam.age.toLowerCase().includes(search.toLowerCase())
+  const filteredItems = exams && exams.filter((exam) =>
+  searchProperties.some((prop) => exam[prop].toLowerCase().includes(search.toLowerCase()))
 );
  const currentRecords = filteredItems.slice(firstRecordIndex, lastRecordIndex)
 

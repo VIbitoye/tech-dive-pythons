@@ -146,7 +146,7 @@ function Admin() {
                 aria-describedby="button-addon2"
               />
             </div>
-      {/*create exam button */}
+      
       <div className='flex flex-col items-center'>
          
       {notification && (
@@ -154,9 +154,10 @@ function Admin() {
             Exam has been deleted!
           </div>
         )}
+        {/*create exam button */}
           <Link
             to='/exams/new'
-            className='flex items-center justify-center w-[9rem] px-4 py-2 bg-[#50936d] active:bg-green-600 drop-shadow-md text-white rounded-full text text-lg font-semibold'
+            className='flex items-center justify-center w-[9rem] px-4 py-2 bg-[#50936d] active:bg-green-600 drop-shadow-md text-white rounded-full text text-lg font-semibold ease-linear transition-all duration-150'
           >
             Create Exam
           </Link>
