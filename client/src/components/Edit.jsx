@@ -187,7 +187,7 @@ function Edit() {
                           <select name="sex" value={formValues.sex} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required>
                            <option value="F">F</option>
                             <option value="M">M</option>
-                            <option value="N">N/A</option>
+                            <option value="O">Other</option>
                                    </select>
                           </label>
                           <label className="block mb-2 font-medium text-gray-600">
