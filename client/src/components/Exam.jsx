@@ -6,6 +6,7 @@ import { useExamsContext } from '../hooks/useExamsContext';
 function Exam() {
   const { exam, dispatch} = useExamsContext();
   const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState(false);
   const { _id } = useParams();
 
   useEffect(() => {
@@ -27,17 +28,24 @@ function Exam() {
        <>
     {loading === false ? (
     <div className="container mx-auto px-4 sm:px-6 mt-20">
+      {modal && (
+            <div className="fixed inset-0 z-10 bg-black bg-opacity-80 flex justify-center items-center h-full w-full max-w-full max-h-full" onClick={() => setModal(false)}>
+            <div className="h-[70rem] w-[70rem] max-w-full max-h-full flex items-center justify-center overflow-auto">
+              <img src={exam.pngFileName} className="rounded-md" alt="x-ray" />
+            </div>
+          </div>
+            )}
       <div className='mt-10'>
        <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">Exam Details</h2>
        </div>
        <div className="flex flex-col items-center justify-center">
                   <div className="flex flex-col md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-10">
-            <img className="w-full md:w-1/2 rounded-lg max-h-[36rem]" src={exam.pngFileName} alt="x-ray photo" />
-
+            <img onClick={() => setModal(true)} className="w-full md:w-1/2 rounded-lg max-h-[36rem]" src={exam.pngFileName} alt="x-ray" />
+            
             <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Patient ID:</p>
-                <Link to ={`/patient/${exam.patientId}`}><p className="px-4 font-semibold py-2 text-green-500">{exam.patientId}</p></Link>
+                <Link to ={`/patient/${exam.patientId}`} ><p className="px-4 font-semibold py-2 text-green-500">{exam.patientId}</p></Link>
               </div>
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Exam ID:</p>

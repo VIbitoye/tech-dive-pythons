@@ -125,7 +125,7 @@ function Patient() {
 
                       {/*table headers*/}
                 <th 
-                  className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 tracking-wider"
                 >
                  Image 
                 </th>
@@ -181,7 +181,7 @@ function Patient() {
                
                         <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td className=" px-5 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}`}>{exam.examId}</Link></td>
-                        <td className=" px-7 py-5  border-gray-200 w-[13rem] bg-white text-sm"><img src = {exam.pngFileName} alt = 'x-ray photo'/></td>
+                        <td className=" sm:px-5 lg:px-7 px-4 py-5  border-gray-200 w-[11rem] bg-white text-sm"><Link to = {exam.pngFileName}><img className='rounded' src = {exam.pngFileName} alt = 'x-ray'/></Link></td>
                         <td className=" px-[3rem] py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 

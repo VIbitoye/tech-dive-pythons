@@ -8,6 +8,7 @@ function Edit() {
   const [loading, setLoading] = useState(true);
   const { exam, dispatch } = useExamsContext();
   const { _id } = useParams();
+  const [modal, setModal] = useState(false);
   const [notification, setNotification] = useState();
   const [editMode, setEditMode] = useState(false);
   const [formValues, setFormValues] = useState({
@@ -94,6 +95,13 @@ function Edit() {
       {loading === false ? (
         <div className="container mx-auto px-4 sm:px-8 mt-20">
           {window.scrollTo(0, 0)}
+          {modal && (
+            <div className="fixed inset-0 z-10 bg-black bg-opacity-80 flex justify-center items-center h-full w-full max-w-full max-h-full" onClick={() => setModal(false)}>
+            <div className="h-[70rem] w-[70rem] max-w-full max-h-full flex items-center justify-center overflow-auto">
+              <img src={exam.pngFileName} alt="x-ray" className = "rounded" />
+            </div>
+          </div>
+            )}
           <div className="mt-10">
             <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">
               Exam Details
@@ -118,7 +126,7 @@ function Edit() {
                   </button>
 
                   <div className="flex flex-col  md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-3">
-            <img className="w-full md:w-1/2 rounded-lg sm:max-h-[25rem] md:max-h-[40rem]" src={exam.pngFileName} alt="x-ray photo" />
+                  <img onClick={() => setModal(true)} className="w-full md:w-1/2 rounded-lg max-h-[36rem]" src={exam.pngFileName} alt="x-ray" />
 
             <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
