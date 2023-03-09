@@ -7,7 +7,7 @@ import Pagination from './Pagination';
 function Patient() {
   const [exams, setExams] = useState([]);
   const[search,setSearch] = useState("");
-  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
+  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age", "bmi"];
   const [loading, setLoading] = useState();
   console.log(search);
   const [sortBy, setSortBy] = useState(null);

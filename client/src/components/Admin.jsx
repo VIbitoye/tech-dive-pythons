@@ -6,7 +6,7 @@ import { Link} from "react-router-dom";
 import { useExamsContext } from '../hooks/useExamsContext';
 function Admin() {
   const [selectedExam, setSelectedExam] = useState();
-  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
+  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age", "bmi"];
   const [notification, setNotification] = useState()
   const[search,setSearch] = useState("");
   console.log(search);

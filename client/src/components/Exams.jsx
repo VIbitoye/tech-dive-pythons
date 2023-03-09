@@ -7,7 +7,7 @@ import { useExamsContext } from '../hooks/useExamsContext';
 function Exams() {
   const [loading, setLoading] = useState(true)
   const {exams, dispatch} = useExamsContext()
-  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age"];
+  const searchProperties = ["examId", "patientId", "sex", "mortality", "zip", "numIcuAdmits", "age", "bmi"];
   //Fetching the API
   useEffect(() => {
     const fetchExams = async () =>{
