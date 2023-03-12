@@ -57,10 +57,11 @@ const [sortBy, setSortBy] = useState(null);
       let bValue = b[key];
   
       //for converting only the strings that are numbers into number types
-      if (!isNaN(aValue) && !isNaN(bValue)) {
-        aValue = parseInt(aValue, 10);
-        bValue = parseInt(bValue, 10);
-      }
+       if (key === 'examId') {
+      aValue = parseInt(aValue.replace('Exam-', ''), 10);
+      bValue = parseInt(bValue.replace('Exam-', ''), 10);
+    }
+
   
       if (direction === 'asc') {
         return aValue > bValue ? 1 : -1;

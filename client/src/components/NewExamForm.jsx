@@ -29,7 +29,7 @@ function NewExamForm () {
       bmi,
       weight,
       pngFileName,
-      examId,
+      examId: examId.charAt(0).toUpperCase() + examId.slice(1), //for making the first letter uppercase
       icu,
       numIcuAdmits,
       mortality,

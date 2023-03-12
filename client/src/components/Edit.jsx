@@ -25,6 +25,12 @@ function Edit() {
   });
 
   const [originalValues, setOriginalValues] = useState(formValues);
+
+  useEffect(() => {
+    setOriginalValues(formValues);
+  }, [formValues]);
+
+
   //fetching exam data
   useEffect(() => {
     const fetchExam = async () => {
@@ -243,7 +249,7 @@ function Edit() {
                           </label>
                           </div>
                           <div className="col-span-2">
-                              <button type="submit" className="bg-blue-600 text-white active:bg-blue-500 uppercase text-sm font-semibold px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Submit</button>
+                              <button type="submit" className="bg-blue-600 text-white active:bg-blue-500 uppercase text-sm font-semibold px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-5 mb-1 ease-linear transition-all duration-150">Submit</button>
                             <button className="bg-red-600 text-white active:bg-red-500 uppercase text-sm font-semibold px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={handleCancel}>Cancel</button>
                             </div>
                           </form>
