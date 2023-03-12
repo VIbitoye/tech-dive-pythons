@@ -26,9 +26,6 @@ function Edit() {
 
   const [originalValues, setOriginalValues] = useState(formValues);
 
-  useEffect(() => {
-    setOriginalValues(formValues);
-  }, [formValues]);
 
 
   //fetching exam data
