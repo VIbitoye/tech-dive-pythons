@@ -39,32 +39,51 @@ app.get('/*', function (req, res) {
 
 
 //connect to db using mongoose
+//creating a connection pool 
+const { MongoClient } = require('mongodb');
 mongoose.set("strictQuery", false);
 const mongooseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 0,
+  socketTimeoutMS: 30000, // set socket timeout to 30 seconds
   keepAlive: true,
   keepAliveInitialDelay: 30000, 
   retryWrites: true
-};
-mongoose.connect(process.env.MONG_URI, mongooseOptions)
-  .then(() => {
-    //listen for requests
-  app.listen(process.env.PORT, () => {
-    console.log('connected to db & listening on port', process.env.PORT)
-  })
-  })
-  .catch((error) => {
-    console.log(error)
-  })
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+}
+// create a connection pool with 10 connections
+const poolSize = 10;
+const mongoClient = new MongoClient(process.env.MONG_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  maxPoolSize: poolSize,
 });
 
+// connect to the database using the connection pool
+mongoClient.connect()
+  .then(() => {
+    console.log(`Connected to MongoDB using connection pool with ${poolSize} connections`);
+
+    // get the database URI string from the MongoDB client
+    const dbURI = process.env.MONG_URI;
+
+    // create a Mongoose connection using the database URI string
+    mongoose.connect(dbURI, mongooseOptions)
+      .then(() => {
+        // listen for requests
+        app.listen(process.env.PORT, () => {
+          console.log(`App listening on port ${process.env.PORT}`);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        process.exit(1);
+      });
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
