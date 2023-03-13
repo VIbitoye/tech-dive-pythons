@@ -44,9 +44,9 @@ const mongooseOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 45000,
+  socketTimeoutMS: 0,
   keepAlive: true,
-  keepAliveInitialDelay: 300000000, // 5 minutes
+  keepAliveInitialDelay: 30000, 
   retryWrites: true
 };
 mongoose.connect(process.env.MONG_URI, mongooseOptions)
