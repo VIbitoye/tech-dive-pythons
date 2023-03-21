@@ -129,7 +129,7 @@ function Edit() {
 
 <div className="flex flex-col items-center justify-center">
 <button
-                    className="bg-[#2c73e6] text-white active:bg-blue-600 font-bold mt-3 uppercase text-sm px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-[#2c73e6] text-white active:bg-blue-600 font-bold mt-3 uppercase text-sm md:ml-24 lg:ml-0 px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setEditMode(true)}
                   >
@@ -139,13 +139,13 @@ function Edit() {
                   <div className="flex flex-col  md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-3">
                   <img onClick={() => setModal(true)} className="w-full md:w-1/2 rounded-lg max-h-[36rem]" src={exam.pngFileName} alt="x-ray" />
 
-            <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-10 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
+            <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-2 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Patient ID:</p>
                 <Link to ={`/patient/${exam.patientId}`}><p className="px-4 font-semibold py-2 text-green-500">{exam.patientId}</p></Link>
               </div>
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
-                <p className="font-medium px-4 py-2">Exam ID:</p>
+                <p className="font-medium px-4 py-3">Exam ID:</p>
                 <p className="px-4 py-2">{exam.examId}</p>
               </div>
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">

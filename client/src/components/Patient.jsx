@@ -32,7 +32,7 @@ function Patient() {
 
       setTimeout(() => {
         setLoading(false);
-      }, 400);
+      }, 700);
     }, []);
   
  //Pagination of the records
@@ -81,12 +81,12 @@ function Patient() {
           
            {/*header */}
                <div>
-                  <h2 className="text-3xl font-semibold leading-tight text-left sm:w-[50rem] mb-1">View Examinations:  <span className='text-green-500'>Patient {patientId}</span></h2>
+                  <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:text-left sm:ml-10 lg:w-1/2 xl:w-7/12">View Examinations:  <span className='text-green-500'>Patient {patientId}</span></h2>
                </div>
                <div className = "p-4 ml-6 min-w-full ">
       <input onChange ={(e) => setSearch(e.target.value)}
        type="search"
-        className="form-control relative flex-auto ml-[-2rem] min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
+        className="form-control relative flex-auto w-full md:w-3/4 lg:w-1/2 xl:w-2/3 mx-auto mb-5 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-gray-400 focus:outline-none" 
         placeholder="Search"
          aria-label="Search" 
          aria-describedby="button-addon2"/>
