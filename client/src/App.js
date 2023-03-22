@@ -3,6 +3,7 @@ import Admin from './components/Admin';
 import Navbar from './components/Navbar';
 import Exams from './components/Exams';
 import Exam from './components/Exam';
+import Error from './components/Error';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Patient from './components/Patient';
 import Edit from './components/Edit';
@@ -24,6 +25,7 @@ function App() {
         <Route path = '/exams/new' element = {<NewExamForm/>}/>
        <Route path = '/exams/:_id' element   = {<Exam/>}/>
       <Route path = '/admin' element = {<Admin/>}/>
+      <Route path = '*' element = {<Error/>}/>
     </Routes>
     </Router>
     </div>
