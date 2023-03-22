@@ -49,6 +49,16 @@ function Edit() {
           icu: data.icu,
           numIcuAdmits: data.numIcuAdmits,
         });
+        setOriginalValues({
+          patientId: data.patientId,
+          examId: data.examId,
+          age: data.age,
+          sex: data.sex,
+          zip: data.zip,
+          bmi: data.bmi,
+          weight: data.weight,
+          mortality:data.mortality
+        })
         dispatch({ type: "SET_EXAM", payload: data });
       }
     };
@@ -114,13 +124,14 @@ function Edit() {
           </div>
             )}
           <div className="mt-10">
-            <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">
-              Exam Details
-            </h2>
+            
           </div>
           <div className="flex flex-col items-center justify-center">
             {!editMode && (
               <>
+              <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">
+              Exam Details
+            </h2>
                 {notification && (
                   <div className="mt-4 bg-green-200 font-semibold px-8 py-2 mb-1 border-2 border-green-500 rounded-md text-green-800">
                     Exam data updated successfully!
@@ -139,7 +150,7 @@ function Edit() {
                   <div className="flex flex-col  md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-3">
                   <img onClick={() => setModal(true)} className="w-full md:w-1/2 rounded-lg max-h-[36rem]" src={exam.pngFileName} alt="x-ray" />
 
-            <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-2 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
+            <div className="flex flex-col w-2/3 sm:w-2/3 md:w-1/2 md:px-2 md:py-5 md:grid md:grid-cols-2 md:gap-5 ">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Patient ID:</p>
                 <Link to ={`/patient/${exam.patientId}`}><p className="px-4 font-semibold py-2 text-green-500">{exam.patientId}</p></Link>
@@ -187,21 +198,26 @@ function Edit() {
           </>
         )}
         {editMode && (
+            <div> 
+               <h2 className="text-3xl mt-4 font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">
+              Edit Exam
+            </h2>
           <form className="mt-4 grid grid-cols-2  gap-4" onSubmit={handleSubmit}>
+           
             <div className="col-span-1 ">
-            <label className="block mb-2 font-medium   text-gray-600">
+            <label className="block mb-5 font-medium   text-gray-600">
                           Patient ID:
                           <input type="text" name="patientId" value={formValues.patientId} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
                           </label>
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600">
                           Exam ID:
                           <input type="text" name="examId" value={formValues.examId} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
                           </label>
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600">
                           Age:
                           <input type="number" name="age" min={1} value={formValues.age} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
                           </label>
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600">
                           Sex:
                           <select name="sex" value={formValues.sex} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required>
                            <option value="F">F</option>
@@ -209,28 +225,28 @@ function Edit() {
                             <option value="O">Other</option>
                                    </select>
                           </label>
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600">
                           Zip code:
                           <input type="text" name="zip" value={formValues.zip} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
                           </label></div>
                           <div className="col-span-1">
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600">
                           Weight (lbs):
                           <input type="number" name="weight" value={formValues.weight} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
                           </label>
-                          <label className="block mb-2 font-medium text-gray-600"></label>
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600"></label>
+                          <label className="block mb-5 font-medium text-gray-600">
                           BMI:
                           <input type="number" name="bmi" value={formValues.bmi} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required />
                           </label>
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600">
                           Mortality:
                           <select name="mortality" value={formValues.mortality} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required>
                            <option value="Y">Y</option>
                             <option value="N">N</option>
                                    </select>
                           </label>
-                          <label className="block mb-2 font-medium text-gray-600">
+                          <label className="block mb-5 font-medium text-gray-600">
                           Admitted to ICU:
                           <select name="icu" value={formValues.icu} onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required>
                            <option value="Y">Y</option>
@@ -245,11 +261,12 @@ function Edit() {
                             onChange={handleInputChange} className="border-2 border-gray-300 p-2 rounded-md w-full" required min="0"/>
                           </label>
                           </div>
-                          <div className="col-span-2">
-                              <button type="submit" className="bg-blue-600 text-white active:bg-blue-500 uppercase text-sm font-semibold px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-5 mb-1 ease-linear transition-all duration-150">Submit</button>
-                            <button className="bg-red-600 text-white active:bg-red-500 uppercase text-sm font-semibold px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={handleCancel}>Cancel</button>
+                          <div className="col-span-2 mt-5">
+                              <button type="submit" className="bg-blue-600 text-white active:bg-blue-500 uppercase text-sm font-bold px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150">Submit</button>
+                            <button className="bg-red-600 text-white active:bg-red-500 uppercase text-sm font-semibold px-7 py-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none ml-3 mb-1 ease-linear transition-all duration-150" onClick={handleCancel}>Cancel</button>
                             </div>
                           </form>
+                          </div>
                           )}
    </div>                       
 </div> ): (<LoadingScreen/>)} </>                        

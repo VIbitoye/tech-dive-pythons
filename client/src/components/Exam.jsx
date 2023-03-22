@@ -35,14 +35,14 @@ function Exam() {
             </div>
           </div>
             )}
-      <div className='mt-10'>
+      <div className=''>
        <h2 className="text-3xl font-semibold leading-tight text-center mb-1 sm:w-full md:w-[50rem] mx-auto ">Exam Details</h2>
        </div>
        <div className="flex flex-col items-center justify-center">
                   <div className="flex flex-col md:flex-row items-center justify-center gap-10 h-auto bg-white drop-shadow-lg rounded-md border-2 md:px-10 md:py-10 mt-10">
             <img onClick={() => setModal(true)} className="w-full md:w-1/2 rounded-lg max-h-[36rem]" src={exam.pngFileName} alt="x-ray" />
             
-            <div className="flex flex-col sm:w-2/3 md:w-1/2 md:px-2 md:py-5 md:grid md:grid-cols-2 md:gap-5">
+            <div className="flex flex-col w-2/3 sm:w-2/3 md:w-1/2 md:px-2 md:py-5 md:grid md:grid-cols-2 md:gap-5">
               <div className="border-2 bg-white rounded-lg drop-shadow-lg mb-2">
                 <p className="font-medium px-4 py-2">Patient ID:</p>
                 <Link to ={`/patient/${exam.patientId}`} ><p className="px-4 font-semibold py-2 text-green-500">{exam.patientId}</p></Link>
