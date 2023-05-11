@@ -11,7 +11,7 @@ router.get('/', getExams);
 router.get("/patient/:patientId", getExamsByPatient);
 
 //GET a single exam
-router.get('/:_id', getExam);
+router.get('/:_id', getExam)
 
 //POST a new exam
 router.post('/', createExam)

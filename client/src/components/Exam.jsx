@@ -31,7 +31,7 @@ function Exam() {
       {modal && (
             <div className="fixed inset-0 z-10 bg-black bg-opacity-80 flex justify-center items-center h-full w-full max-w-full max-h-full" onClick={() => setModal(false)}>
             <div className="h-[70rem] w-[70rem] max-w-full max-h-full flex items-center justify-center overflow-auto">
-              <img src={exam.pngFileName} className="rounded-md" alt="x-ray" />
+              <img src={exam.pngFileName} className="rounded-md" alt="x-ray" loading='lazy' />
             </div>
           </div>
             )}

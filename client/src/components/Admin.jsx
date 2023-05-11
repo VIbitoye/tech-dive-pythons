@@ -259,7 +259,7 @@ function Admin() {
                   {/*table data */}
                         <td className=" px-6 py-5 border-gray-200 text-center text-green-600 bg-white text-sm">{exam.patientId} </td>       
                         <td className=" px-8 py-5  border-gray-200 text-green-600 bg-white  font-semibold text-sm"><Link to={`/exams/${exam._id}/edit`}>{exam.examId}</Link></td>
-                        <td className=" sm:px-5 lg:px-7 px-4 py-5  border-gray-200 w-[11rem] bg-white text-sm"><Link to = {exam.pngFileName } target="_blank"><img className='rounded' src = {exam.pngFileName} alt = 'x-ray'/></Link></td>
+                        <td className=" sm:px-5 lg:px-7 px-4 py-5  border-gray-200 w-[11rem] bg-white text-sm"><Link to = {exam.pngFileName } target="_blank"><img className='rounded' src = {exam.pngFileName} alt = 'x-ray' loading='lazy'/></Link></td>
                         <td className=" px-12 py-5  border-gray-200 bg-white text-sm">{exam.mortality}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.numIcuAdmits}</td> 
                         <td className=" px-7 py-5 border-gray-200 bg-white text-sm">{exam.age}</td> 

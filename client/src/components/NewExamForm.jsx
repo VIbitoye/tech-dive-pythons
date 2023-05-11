@@ -78,6 +78,7 @@ function NewExamForm () {
     
     <div className="flex flex-col items-center mt-20 h-screen ">
      { window.scrollTo(0,0)}
+         {/*form of creating a new exam */}
       <div className='flex items'><h2 className='text-4xl font-semibold mt-10 mb-10'>Create Exam</h2></div>
       <div className="bg-white drop-shadow-lg rounded-lg border-2 px-6 py-8 w-5/6 max-w-5xl flex flex-row justify-center">
         <form className="grid grid-cols-2 gap-6 items-center justify-center w-4/5" onSubmit={handleSubmit}>

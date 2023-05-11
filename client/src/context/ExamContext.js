@@ -44,11 +44,12 @@ export const examsReducer = (state, action) => {
 }
 }
 export const ExamsContextProvider = ({children}) => {
+  //initial state for the examsReducer
     const [state, dispatch] = useReducer(examsReducer,{ 
         exams:[],
         exam: {}
     });
-
+    //// Render the context provider with the state object and dispatch function as its value
     return (
         <ExamsContext.Provider value={{ ...state, dispatch }}>
             {children}
